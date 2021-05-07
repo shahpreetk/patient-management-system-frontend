@@ -2,7 +2,7 @@
 
 Frontend for patient inventory project
 
-## About Inventostock
+## About the system
 
 It is a website that allows doctors to keep a track of patients and their prescriptions.
 

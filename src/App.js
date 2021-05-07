@@ -15,8 +15,8 @@ const EditShare = lazy(() => import("./pages/EditShare"));
 const Login = lazy(() => import("./pages/Login"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-axios.defaults.baseURL = "https://inventostocks-backend.herokuapp.com/api/v1";
-// axios.defaults.baseURL = "http://localhost:3001/api/v1";
+// axios.defaults.baseURL = "https://inventostocks-backend.herokuapp.com/api/v1";
+axios.defaults.baseURL = "http://localhost:3001/api/v1";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
