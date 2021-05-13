@@ -81,10 +81,10 @@ const CustomTable = ({ stocks, loading }) => {
                 <tr className="w-full h-16 border-gray-300 dark:border-gray-200 border-b py-8">
                   <th className="pl-8 text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4"></th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Company Name
+                    Patient Name
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Ticker
+                    Mobile Number
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
                     Buying Date
@@ -132,7 +132,7 @@ const CustomTable = ({ stocks, loading }) => {
                   !loading ? (
                   <tr>
                     <th colSpan={11}>
-                      <p>Please add a share</p>
+                      <p>Please add data</p>
                     </th>
                   </tr>
                 ) : (
