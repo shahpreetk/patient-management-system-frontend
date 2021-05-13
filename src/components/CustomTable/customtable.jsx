@@ -12,7 +12,7 @@ const CustomTable = ({ stocks, loading }) => {
   const { deleteStock, setCurrent } = useContext(StateContext);
   const handleDeleteStock = (id) => {
     const userFeedback = window.confirm(
-      "Are you sure you want to delete this share?"
+      "Are you sure you want to delete this data?"
     );
     if (userFeedback) {
       deleteStock(id);
@@ -56,16 +56,16 @@ const CustomTable = ({ stocks, loading }) => {
                   aria-label="Download All"
                   title="Download All"
                 >
-                  <CSVLink data={stocks} filename="CSV-Inventostocks.csv">
+                  <CSVLink data={stocks} filename="CSV-PatientData.csv">
                     {" "}
                     Download All
                   </CSVLink>
                 </button>
                 {/* Add icon */}
-                <Link to={ROUTES.ADDSHARE}>
+                <Link to={ROUTES.ADD_DATA}>
                   <button className="text-white ml-4 cursor-pointer focus:outline-none border border-transparent focus:border-gray-800 focus:shadow-outline-gray bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 w-8 h-8 rounded flex items-center justify-center"
-                    aria-label="Add Share"
-                    title="Add Share"
+                    aria-label="Add Data"
+                    title="Add Data"
                   >
                     <GoPlus width={28} height={28} />
                   </button>

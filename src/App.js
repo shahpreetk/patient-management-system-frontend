@@ -51,9 +51,9 @@ export default function App() {
                 component={Dashboard}
                 exact
               />
-              <PrivateRoute path={ROUTES.ADDSHARE} component={AddShare} exact />
+              <PrivateRoute path={ROUTES.ADD_DATA} component={AddShare} exact />
               <PrivateRoute
-                path={ROUTES.EDITSHARE}
+                path={ROUTES.EDITDATA}
                 component={EditShare}
                 exact
               />

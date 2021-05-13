@@ -1,6 +1,6 @@
 export const DASHBOARD = "/";
-export const ADDSHARE = "/addshare";
-export const EDITSHARE = "/editshare/:id";
+export const ADD_DATA = "/add-data";
+export const EDITDATA = "/editdata/:id";
 export const LOGIN = "/login";
 export const SIGN_UP = "/signup";
 export const PROFILE = "/profile";
