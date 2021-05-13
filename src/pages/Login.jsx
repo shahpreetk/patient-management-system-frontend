@@ -88,7 +88,7 @@ export default function Login() {
                             name="email"
                             required={true}
                             className="w-full bg-transparent text-gray-800 dark:text-gray-100 focus:outline-none focus:border focus:border-indigo-700 font-normal py-3 flex items-center pl-16 text-sm rounded border shadow"
-                            placeholder="testinventostocks@email.com"
+                            placeholder="testpatientmanagement@email.com"
                           />
                         </div>
                       </div>
