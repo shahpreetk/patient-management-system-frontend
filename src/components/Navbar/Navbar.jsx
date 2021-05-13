@@ -17,7 +17,7 @@ const Navbar = () => {
             href="/"
             className="flex title-font font-medium items-center text-white mb-4 md:mb-0"
           >
-            <span className="ml-3 text-xl">InventoStocks</span>
+            <span className="ml-3 text-xl">Patient Management System</span>
           </a>
           <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4	flex flex-wrap items-center text-base justify-center"></nav>
           <button
