@@ -25,7 +25,7 @@ export default function Login() {
   };
 
   useEffect(() => {
-    document.title = "Login | InventoStocks";
+    document.title = "Login | Patient Management System";
     if (isAuthenticated) {
       history.push("/");
     }
@@ -48,7 +48,7 @@ export default function Login() {
               <div className="xl:w-full bg-gray-50 border-b border-gray-300 dark:border-gray-700 py-5">
                 <div className="flex items-center w-11/12 mx-auto">
                   <p className="text-lg text-gray-800 dark:text-gray-100 font-bold">
-                    Login to InventoStocks
+                    Login to Patient Management System
                   </p>
                 </div>
               </div>
