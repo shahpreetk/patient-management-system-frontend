@@ -87,25 +87,34 @@ const CustomTable = ({ stocks, loading }) => {
                     Mobile Number
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Buying Date
+                    Date of Diagnosis/Date 1
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Buying Price
+                    Diagnosis 1
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Buying Qty
+                    Medicine 1
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Stoploss
+                    Date 2
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Selling Price
+                    Diagnosis 2
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Selling Qty
+                    Medicine 2
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Net Result
+                    Date 3
+                  </th>
+                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                    Diagnosis 3
+                  </th>
+                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                    Medicine 3
+                  </th>
+                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
+                    Comments
                   </th>
                   <td className="text-gray-600 dark:text-gray-400 font-normal pr-8 text-left text-sm tracking-normal leading-4">
                     More
