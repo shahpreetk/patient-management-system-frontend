@@ -11,7 +11,7 @@ export default function Dashboard() {
   const { details, getDetails, loading } = detailContext;
 
   useEffect(() => {
-    document.title = "Patient Management";
+    document.title = "Patient Management System";
     authContext.loadUser();
     getDetails();
     // eslint-disable-next-line

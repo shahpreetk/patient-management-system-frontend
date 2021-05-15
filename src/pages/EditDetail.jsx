@@ -106,7 +106,7 @@ const EditShare = () => {
   };
 
   useEffect(() => {
-    document.title = "Add a Share | Inventostocks";
+    document.title = "Edit Detail | Patient Management";
     if (current !== null) {
       setName(current.name);
       setTicker(current.ticker);

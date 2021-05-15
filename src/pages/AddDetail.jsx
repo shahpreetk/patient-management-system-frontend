@@ -94,7 +94,7 @@ const AddShare = () => {
   };
 
   useEffect(() => {
-    document.title = "Add a Share | Inventostocks";
+    document.title = "Add Detail | Patient Management";
   }, [clearErrors, error]);
 
   return (
