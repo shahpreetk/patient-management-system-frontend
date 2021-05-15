@@ -1,13 +1,13 @@
 // @ts-check
 import React, { useContext } from "react";
 import AuthContext from "../../context/auth/authContext";
-import StockContext from "../../context/detail/detailContext";
+import DetailContext from "../../context/detail/detailContext";
 
 const Navbar = () => {
   const authContext = useContext(AuthContext);
-  const stockContext = useContext(StockContext);
+  const detailContext = useContext(DetailContext);
   const { logout } = authContext;
-  const { clearStocks } = stockContext;
+  const { clearDetails } = detailContext;
 
   return (
     <>
@@ -24,7 +24,7 @@ const Navbar = () => {
             className="inline-flex items-center text-white bg-green-700 border-0 py-1 px-3 focus:outline-none hover:bg-green-600 rounded text-base mt-4 md:mt-0"
             onClick={() => {
               logout();
-              clearStocks();
+              clearDetails();
               window.location.reload();
             }}
           >

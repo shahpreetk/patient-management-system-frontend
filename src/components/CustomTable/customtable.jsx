@@ -213,7 +213,7 @@ const CustomTable = ({ details, loading }) => {
                       </td>
                       {/* Edit button */}
                       <td className="pr-8 relative">
-                        <Link to={`/editshare/${detail._id}`}>
+                        <Link to={`/details/${detail._id}`}>
                           <button
                             className="text-white ml-4 cursor-pointer focus:outline-none border border-transparent focus:border-gray-800 focus:shadow-outline-gray bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 w-8 h-8 rounded flex items-center justify-center"
                             aria-label="Edit"

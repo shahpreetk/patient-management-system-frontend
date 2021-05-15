@@ -57,7 +57,7 @@ export default function App() {
                 exact
               />
               <PrivateRoute
-                path={ROUTES.EDITDATA}
+                path={ROUTES.EDIT_DATA}
                 component={EditDetail}
                 exact
               />
