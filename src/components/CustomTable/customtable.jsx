@@ -5,7 +5,7 @@ import * as ROUTES from "../../constants/routes";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { GoPlus } from "react-icons/go";
-import StateContext from "../../context/stock/stockContext";
+import StateContext from "../../context/detail/detailContext";
 import { CSVLink } from "react-csv";
 
 const CustomTable = ({ stocks, loading }) => {

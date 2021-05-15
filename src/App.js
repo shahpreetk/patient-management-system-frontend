@@ -6,7 +6,7 @@ import axios from "axios";
 import * as ROUTES from "./constants/routes";
 import PrivateRoute from "./components/PrivateRoute";
 import AuthState from "./context/auth/AuthState";
-import StockState from "./context/stock/StockState";
+import DetailState from "./context/detail/DetailState";
 import setAuthToken from "./utils/setAuthToken";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -15,7 +15,7 @@ const EditShare = lazy(() => import("./pages/EditShare"));
 const Login = lazy(() => import("./pages/Login"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// axios.defaults.baseURL = "https://inventostocks-backend.herokuapp.com/api/v1";
+// axios.defaults.baseURL = "https://patient-management-backend.herokuapp.com/api/v1";
 axios.defaults.baseURL = "http://localhost:3001/api/v1";
 
 if (localStorage.token) {
@@ -25,7 +25,7 @@ if (localStorage.token) {
 export default function App() {
   return (
     <AuthState>
-      <StockState>
+      <DetailState>
         <Router>
           <Suspense
             fallback={
@@ -61,7 +61,7 @@ export default function App() {
             </Switch>
           </Suspense>
         </Router>
-      </StockState>
+      </DetailState>
     </AuthState>
   );
 }

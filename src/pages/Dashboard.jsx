@@ -3,7 +3,7 @@ import React, { useEffect, useContext } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import CustomTable from "../components/CustomTable/customtable";
 import AuthContext from "../context/auth/authContext";
-import StockContext from "../context/stock/stockContext";
+import StockContext from "../context/detail/detailContext";
 
 export default function Dashboard() {
   const authContext = useContext(AuthContext);
@@ -11,7 +11,7 @@ export default function Dashboard() {
   const { stocks, getStocks, loading } = stockContext;
 
   useEffect(() => {
-    document.title = "InventoStocks";
+    document.title = "Patient Management";
     authContext.loadUser();
     getStocks();
     // eslint-disable-next-line
