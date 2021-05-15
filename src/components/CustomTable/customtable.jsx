@@ -5,17 +5,17 @@ import * as ROUTES from "../../constants/routes";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { GoPlus } from "react-icons/go";
-import StateContext from "../../context/detail/detailContext";
+import DetailContext from "../../context/detail/detailContext";
 import { CSVLink } from "react-csv";
 
-const CustomTable = ({ stocks, loading }) => {
-  const { deleteStock, setCurrent } = useContext(StateContext);
-  const handleDeleteStock = (id) => {
+const CustomTable = ({ details, loading }) => {
+  const { deleteDetail, setCurrent } = useContext(DetailContext);
+  const handleDeleteDetail = (id) => {
     const userFeedback = window.confirm(
       "Are you sure you want to delete this data?"
     );
     if (userFeedback) {
-      deleteStock(id);
+      deleteDetail(id);
     } else {
       return null;
     }
@@ -56,7 +56,7 @@ const CustomTable = ({ stocks, loading }) => {
                   aria-label="Download All"
                   title="Download All"
                 >
-                  <CSVLink data={stocks} filename="CSV-PatientData.csv">
+                  <CSVLink data={details} filename="CSV-PatientData.csv">
                     {" "}
                     Download All
                   </CSVLink>
@@ -122,7 +122,7 @@ const CustomTable = ({ stocks, loading }) => {
                 </tr>
               </thead>
               <tbody>
-                {stocks === null ? (
+                {details === null ? (
                   <section>
                     <div className="flex">
                       <div className="m-auto">
@@ -136,8 +136,8 @@ const CustomTable = ({ stocks, loading }) => {
                       </div>
                     </div>
                   </section>
-                ) : stocks.length !== null &&
-                  stocks.length === 0 &&
+                ) : details.length !== null &&
+                  details.length === 0 &&
                   !loading ? (
                   <tr>
                     <th colSpan={11}>
@@ -145,10 +145,10 @@ const CustomTable = ({ stocks, loading }) => {
                     </th>
                   </tr>
                 ) : (
-                  stocks.map((stock) => (
+                  details.map((detail) => (
                     <tr
                       className="h-24 border-gray-300 dark:border-gray-200 border-b"
-                      key={stock._id}
+                      key={detail._id}
                     >
                       <td className="pl-8 pr-6 text-left whitespace-no-wrap text-sm text-gray-800 dark:text-gray-100 tracking-normal leading-4">
                         <div className="flex items-center">
@@ -157,7 +157,7 @@ const CustomTable = ({ stocks, loading }) => {
                             className="text-red-500 mr-2 p-2 border-transparent border bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 hover:bg-gray-200 cursor-pointer rounded focus:outline-none focus:border-gray-800 focus:shadow-outline-gray"
                             aria-label="Delete"
                             title="Delete"
-                            onClick={() => handleDeleteStock(stock._id)}
+                            onClick={() => handleDeleteDetail(detail._id)}
                           >
                             <RiDeleteBin6Line />
                           </button>
@@ -165,15 +165,15 @@ const CustomTable = ({ stocks, loading }) => {
                       </td>
                       {/* Company name */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {stock.name}
+                        {detail.name}
                       </td>
                       {/* Ticker */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {stock.ticker}
+                        {detail.ticker}
                       </td>
                       {/* Buying date */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {new Date(stock.buyingDate).toLocaleDateString(
+                        {new Date(detail.buyingDate).toLocaleDateString(
                           "en-US",
                           {
                             year: "numeric",
@@ -185,40 +185,40 @@ const CustomTable = ({ stocks, loading }) => {
                       </td>
                       {/* Buying Price */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        ₹ {stock.buyingPrice}
+                        ₹ {detail.buyingPrice}
                       </td>
                       {/* Buying Quantity */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {stock.buyingQuantity}
+                        {detail.buyingQuantity}
                       </td>
                       {/* Stoploss */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        ₹ {stock.stoploss}
+                        ₹ {detail.stoploss}
                       </td>
                       {/* Selling Price */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {stock.sellingPrice ? "₹ " + stock.sellingPrice : " - "}
+                        {detail.sellingPrice ? "₹ " + detail.sellingPrice : " - "}
                       </td>
                       {/* Selling Quantity */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {stock.sellingQuantity ? stock.sellingQuantity : " - "}
+                        {detail.sellingQuantity ? detail.sellingQuantity : " - "}
                       </td>
                       {/* Net Result */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {stock.sellingQuantity
+                        {detail.sellingQuantity
                           ? "₹ " +
-                          (stock.sellingPrice - stock.buyingPrice) *
-                          stock.sellingQuantity
+                          (detail.sellingPrice - detail.buyingPrice) *
+                          detail.sellingQuantity
                           : " - "}
                       </td>
                       {/* Edit button */}
                       <td className="pr-8 relative">
-                        <Link to={`/editshare/${stock._id}`}>
+                        <Link to={`/editshare/${detail._id}`}>
                           <button
                             className="text-white ml-4 cursor-pointer focus:outline-none border border-transparent focus:border-gray-800 focus:shadow-outline-gray bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 w-8 h-8 rounded flex items-center justify-center"
                             aria-label="Edit"
                             title="Edit"
-                            onClick={() => setCurrent(stock)}
+                            onClick={() => setCurrent(detail)}
                           >
                             <FiEdit size={18} />
                           </button>

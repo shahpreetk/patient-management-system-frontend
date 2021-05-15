@@ -10,8 +10,8 @@ import DetailState from "./context/detail/DetailState";
 import setAuthToken from "./utils/setAuthToken";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
-const AddShare = lazy(() => import("./pages/AddShare"));
-const EditShare = lazy(() => import("./pages/EditShare"));
+const AddDetail = lazy(() => import("./pages/AddDetail"));
+const EditDetail = lazy(() => import("./pages/EditDetail"));
 const Login = lazy(() => import("./pages/Login"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -51,10 +51,14 @@ export default function App() {
                 component={Dashboard}
                 exact
               />
-              <PrivateRoute path={ROUTES.ADD_DATA} component={AddShare} exact />
+              <PrivateRoute
+                path={ROUTES.ADD_DATA}
+                component={AddDetail}
+                exact
+              />
               <PrivateRoute
                 path={ROUTES.EDITDATA}
-                component={EditShare}
+                component={EditDetail}
                 exact
               />
               <Route component={NotFound} />

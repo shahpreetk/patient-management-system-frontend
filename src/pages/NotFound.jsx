@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 
 export default function NotFound() {
   useEffect(() => {
-    document.title = '404 | Page Not Found | InventoStocks';
+    document.title = '404 | Page Not Found | Patient Management';
   });
 
   return (

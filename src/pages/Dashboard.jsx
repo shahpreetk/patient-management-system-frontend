@@ -3,17 +3,17 @@ import React, { useEffect, useContext } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import CustomTable from "../components/CustomTable/customtable";
 import AuthContext from "../context/auth/authContext";
-import StockContext from "../context/detail/detailContext";
+import DetailContext from "../context/detail/detailContext";
 
 export default function Dashboard() {
   const authContext = useContext(AuthContext);
-  const stockContext = useContext(StockContext);
-  const { stocks, getStocks, loading } = stockContext;
+  const detailContext = useContext(DetailContext);
+  const { details, getDetails, loading } = detailContext;
 
   useEffect(() => {
     document.title = "Patient Management";
     authContext.loadUser();
-    getStocks();
+    getDetails();
     // eslint-disable-next-line
   }, []);
 
@@ -38,7 +38,7 @@ export default function Dashboard() {
             </div>
           </section>
         ) : (
-          <CustomTable stocks={stocks} loading={loading} />
+          <CustomTable details={details} loading={loading} />
         )}
       </div>
     </>
