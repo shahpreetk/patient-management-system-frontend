@@ -74,44 +74,38 @@ const CustomTable = ({ details, loading }) => {
             </div>
           </div>
           {/* Table Start */}
-          <div className="w-full overflow-x-scroll xl:overflow-x-hidden">
+          <div className="w-full overflow-x-scroll 2xl:overflow-x-hidden">
             <table className="min-w-full bg-white dark:bg-gray-800">
               {/* Table Head */}
               <thead>
                 <tr className="w-full h-16 border-gray-300 dark:border-gray-200 border-b py-8">
-                  <th className="pl-8 text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4"></th>
+                  <th className="pl-8 text-gray-600 dark:text-gray-400 font-normal pr-2 text-left text-sm tracking-normal leading-4"></th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Patient Name
+                    Name
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Mobile Number
+                    Case No.
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Date of Diagnosis/Date 1
+                    Mobile
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Diagnosis 1
+                    Date1
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Medicine 1
+                    Diag1
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Date 2
+                    Presp1
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Diagnosis 2
+                    Date2
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Medicine 2
+                    Diag2
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Date 3
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Diagnosis 3
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Medicine 3
+                    Presp2
                   </th>
                   <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
                     Comments
@@ -140,7 +134,7 @@ const CustomTable = ({ details, loading }) => {
                   details.length === 0 &&
                   !loading ? (
                   <tr>
-                    <th colSpan={11}>
+                    <th colSpan={14}>
                       <p>Please add data</p>
                     </th>
                   </tr>
@@ -150,7 +144,7 @@ const CustomTable = ({ details, loading }) => {
                       className="h-24 border-gray-300 dark:border-gray-200 border-b"
                       key={detail._id}
                     >
-                      <td className="pl-8 pr-6 text-left whitespace-no-wrap text-sm text-gray-800 dark:text-gray-100 tracking-normal leading-4">
+                      <td className="pl-8 pr-2 text-left whitespace-no-wrap text-sm text-gray-800 dark:text-gray-100 tracking-normal leading-4">
                         <div className="flex items-center">
                           {/* Delete Icon */}
                           <button
@@ -163,53 +157,61 @@ const CustomTable = ({ details, loading }) => {
                           </button>
                         </div>
                       </td>
-                      {/* Company name */}
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
+                      {/* Patient name */}
+                      <td className="text-sm pr-8 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
                         {detail.name}
                       </td>
-                      {/* Ticker */}
+                      {/* Case Number */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {detail.ticker}
+                        {detail.caseNumber}
                       </td>
-                      {/* Buying date */}
+                      {/* Mobile Number */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {new Date(detail.buyingDate).toLocaleDateString(
-                          "en-US",
+                        {detail.mobileNumber}
+                      </td>
+                      {/* Date 1 */}
+                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
+                        {new Date(detail.date1).toLocaleDateString(
+                          "en-IN",
                           {
                             year: "numeric",
                             month: "long",
                             day: "numeric",
-                            timeZone: "UTC",
+                            timeZone: "IST",
                           }
                         )}
                       </td>
-                      {/* Buying Price */}
+                      {/* Diagnosis 1 */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        ₹ {detail.buyingPrice}
+                        {detail.diagnosis1}
                       </td>
-                      {/* Buying Quantity */}
+                      {/* Prescription 1 */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {detail.buyingQuantity}
+                        {detail.prescription1}
                       </td>
-                      {/* Stoploss */}
+                      {/* Date 2 */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        ₹ {detail.stoploss}
+                        {new Date(detail.date2).toLocaleDateString(
+                          "en-IN",
+                          {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            timeZone: "IST",
+                          }
+                        )}
                       </td>
-                      {/* Selling Price */}
+                      {/* Diagnosis 2 */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {detail.sellingPrice ? "₹ " + detail.sellingPrice : " - "}
+                        {detail.diagnosis2}
                       </td>
-                      {/* Selling Quantity */}
+                      {/* Prescription 2 */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {detail.sellingQuantity ? detail.sellingQuantity : " - "}
+                        {detail.prescription2}
                       </td>
-                      {/* Net Result */}
+                      {/* Comments */}
                       <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {detail.sellingQuantity
-                          ? "₹ " +
-                          (detail.sellingPrice - detail.buyingPrice) *
-                          detail.sellingQuantity
-                          : " - "}
+                        {detail.comments}
                       </td>
                       {/* Edit button */}
                       <td className="pr-8 relative">
