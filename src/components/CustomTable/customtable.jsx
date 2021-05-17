@@ -25,7 +25,7 @@ const CustomTable = ({ details, loading }) => {
 
   return (
     <>
-      <div className="px-10 py-20">
+      <div className="px-10 pt-10 pb-20">
         {/* <div className="mx-auto container bg-white dark:bg-gray-800 shadow rounded"> */}
         <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {details === null ? (
@@ -118,7 +118,7 @@ const CustomTable = ({ details, loading }) => {
                         aria-label="Delete"
                         title="Delete"
                         onClick={() => handleDeleteDetail(detail._id)}
-                        className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm font-medium rounded-bl-lg text-red-500"
+                        className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm font-medium rounded-bl-lg text-red-600"
                       >
                         <TrashIcon className="w-5 h-5 text-red-500" aria-hidden="true" />
                         <span className="ml-3">Delete</span>

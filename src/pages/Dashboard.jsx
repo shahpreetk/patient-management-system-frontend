@@ -1,6 +1,7 @@
 // @ts-check
 import React, { useEffect, useContext } from "react";
 import Navbar from "../components/Navbar/Navbar";
+import SearchComponent from "../components/SearchComponent";
 import CustomTable from "../components/CustomTable/customtable";
 import AuthContext from "../context/auth/authContext";
 import DetailContext from "../context/detail/detailContext";
@@ -39,7 +40,12 @@ export default function Dashboard() {
             </div>
           </section>
         ) : (
-          <CustomTable details={details} loading={loading} />
+          <>
+            <div className="px-10 pt-5 pb-0">
+              <SearchComponent />
+            </div>
+            <CustomTable details={details} loading={loading} />
+          </>
         )}
       </div>
     </>

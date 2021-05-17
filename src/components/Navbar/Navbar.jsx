@@ -11,8 +11,8 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="text-gray-600 bg-green-400 body-font">
-        <div className="container bg-green-400 mx-auto flex flex-wrap pt-5 pb-5 flex-col md:flex-row items-center">
+      <header className="text-gray-600 bg-blueGray-600 body-font">
+        <div className="container bg-blueGray-600 mx-auto flex flex-wrap pt-5 pb-5 flex-col md:flex-row items-center">
           <a
             href="/"
             className="flex title-font font-medium items-center text-white mb-4 md:mb-0"
@@ -21,7 +21,7 @@ const Navbar = () => {
           </a>
           <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4	flex flex-wrap items-center text-base justify-center"></nav>
           <button
-            className="inline-flex items-center text-white bg-green-700 border-0 py-1 px-3 focus:outline-none hover:bg-green-600 rounded text-base mt-4 md:mt-0"
+            className="inline-flex items-center text-white bg-blueGray-500 border-0 py-1 px-3 focus:outline-none hover:bg-blueGray-400 rounded text-base mt-4 md:mt-0"
             onClick={() => {
               logout();
               clearDetails();
