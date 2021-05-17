@@ -12,6 +12,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     document.title = "Patient Management System";
+    document.head.lang = "en";
     authContext.loadUser();
     getDetails();
     // eslint-disable-next-line

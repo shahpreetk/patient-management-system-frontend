@@ -1,12 +1,10 @@
 // @ts-check
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import * as ROUTES from "../../constants/routes";
+import { DuplicateIcon, PhoneIcon, TrashIcon } from '@heroicons/react/solid';
 import { FiEdit } from "react-icons/fi";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { GoPlus } from "react-icons/go";
 import DetailContext from "../../context/detail/detailContext";
-import { CSVLink } from "react-csv";
 
 const CustomTable = ({ details, loading }) => {
   const { deleteDetail, setCurrent } = useContext(DetailContext);
@@ -21,221 +19,144 @@ const CustomTable = ({ details, loading }) => {
     }
   };
 
+  function handleCopy(mobileNumber) {
+    navigator.clipboard.writeText(`${mobileNumber}`);
+    window.alert(`Copied ${mobileNumber}`);
+  }
+
   return (
     <>
-      <div className="py-20">
-        <div className="mx-auto container bg-white dark:bg-gray-800 shadow rounded">
-          <div className="flex flex-col lg:flex-row p-4 lg:p-8 justify-between items-start lg:items-stretch w-full">
-            <div className="w-full lg:w-1/3 flex flex-col lg:flex-row items-start lg:items-center"></div>
-            {/* Pagination */}
-            <div className="w-full lg:w-2/3 flex flex-col lg:flex-row items-start lg:items-center justify-end">
-              {/* <div className="flex items-center lg:border-l lg:border-r border-gray-300 dark:border-gray-200 py-3 lg:py-0 lg:px-6">
-                <p
-                  className="text-base text-gray-600 dark:text-gray-400"
-                  id="page-view"
-                >
-                  Viewing 1 - 20 of 60
-                </p>
-
-                <a
-                  className="text-gray-600 dark:text-gray-400 ml-2 border-transparent border cursor-pointer rounded"
-                  href="/"
-                >
-                  <BsChevronLeft />
-                </a>
-
-                <a
-                  className="text-gray-600 dark:text-gray-400 border-transparent border rounded focus:outline-none cursor-pointer"
-                  href="/"
-                >
-                  <BsChevronRight />
-                </a>
-              </div> */}
-              <div className="lg:ml-6 flex items-center">
-                <button className="bg-gray-200 transition duration-150 ease-in-out focus:outline-none border border-transparent focus:border-gray-800 focus:shadow-outline-gray hover:bg-gray-300 rounded text-indigo-700 px-5 h-8 flex items-center text-sm"
-                  aria-label="Download All"
-                  title="Download All"
-                >
-                  <CSVLink data={details} filename="CSV-PatientData.csv">
-                    {" "}
-                    Download All
-                  </CSVLink>
-                </button>
-                {/* Add icon */}
-                <Link to={ROUTES.ADD_DATA}>
-                  <button className="text-white ml-4 cursor-pointer focus:outline-none border border-transparent focus:border-gray-800 focus:shadow-outline-gray bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 w-8 h-8 rounded flex items-center justify-center"
-                    aria-label="Add Data"
-                    title="Add Data"
-                  >
-                    <GoPlus width={28} height={28} />
-                  </button>
-                </Link>
+      <div className="px-10 py-20">
+        {/* <div className="mx-auto container bg-white dark:bg-gray-800 shadow rounded"> */}
+        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {details === null ? (
+            <section>
+              <div className="flex">
+                <div className="m-auto">
+                  <img
+                    className=""
+                    width="128px"
+                    height="128px"
+                    src="/images/loader.gif"
+                    alt="loader"
+                  />
+                </div>
               </div>
+            </section>
+          ) : details.length !== null &&
+            details.length === 0 &&
+            !loading ? (
+            <div>
+              <p>Please add data</p>
             </div>
-          </div>
-          {/* Table Start */}
-          <div className="w-full overflow-x-scroll 2xl:overflow-x-hidden">
-            <table className="min-w-full bg-white dark:bg-gray-800">
-              {/* Table Head */}
-              <thead>
-                <tr className="w-full h-16 border-gray-300 dark:border-gray-200 border-b py-8">
-                  <th className="pl-8 text-gray-600 dark:text-gray-400 font-normal pr-2 text-left text-sm tracking-normal leading-4"></th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Name
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Case No.
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Mobile
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Date1
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Diag1
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Presp1
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Date2
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Diag2
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Presp2
-                  </th>
-                  <th className="text-gray-600 dark:text-gray-400 font-normal pr-6 text-left text-sm tracking-normal leading-4">
-                    Comments
-                  </th>
-                  <td className="text-gray-600 dark:text-gray-400 font-normal pr-8 text-left text-sm tracking-normal leading-4">
-                    More
-                  </td>
-                </tr>
-              </thead>
-              <tbody>
-                {details === null ? (
-                  <section>
-                    <div className="flex">
-                      <div className="m-auto">
-                        <img
-                          className=""
-                          width="128px"
-                          height="128px"
-                          src="/images/loader.gif"
-                          alt="loader"
-                        />
-                      </div>
+          ) : (
+            details.map((detail) => (
+              <li key={detail._id} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
+                <div className="w-full flex items-center justify-between p-6 space-x-6">
+                  <div className="flex-1 truncate">
+                    <div className="flex items-center space-x-3">
+                      <h3 className="text-gray-900 text-sm font-medium truncate">{detail.name}</h3>
+                      <span className="flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full">
+                        {detail.bloodGroup}
+                      </span>
                     </div>
-                  </section>
-                ) : details.length !== null &&
-                  details.length === 0 &&
-                  !loading ? (
-                  <tr>
-                    <th colSpan={14}>
-                      <p>Please add data</p>
-                    </th>
-                  </tr>
-                ) : (
-                  details.map((detail) => (
-                    <tr
-                      className="h-24 border-gray-300 dark:border-gray-200 border-b"
-                      key={detail._id}
-                    >
-                      <td className="pl-8 pr-2 text-left whitespace-no-wrap text-sm text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        <div className="flex items-center">
-                          {/* Delete Icon */}
+                    <p className="mt-1 text-gray-500 text-sm truncate">
+                      {detail.caseNumber}
+                    </p>
+                  </div>
+                  {/* Details Icon */}
+                  <p className="mt-1 text-gray-500 text-sm truncate">
+                    <Link to={`/details/${detail._id}`}>
+                      <button
+                        className="text-white ml-4 cursor-pointer focus:outline-none border border-transparent focus:border-gray-800 focus:shadow-outline-gray bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 w-8 h-8 rounded flex items-center justify-center"
+                        aria-label="Edit"
+                        title="Edit"
+                        onClick={() => setCurrent(detail)}
+                      >
+                        <FiEdit size={18} />
+                      </button>
+                    </Link>
+                  </p>
+                </div>
+                <div className="w-full items-center p-6">
+                  <p className="text-gray-500 text-sm truncate">
+                    <span className="text-gray-700 font-bold">
+                      Date:{" "}
+                    </span>
+                    {new Date(detail.date1).toLocaleDateString(
+                      "en-IN",
+                      {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        timeZone: "IST",
+                      }
+                    )}
+                  </p>
+                  <p className="text-gray-500 text-sm truncate">
+                    <span className="text-gray-700 font-bold">
+                      Diagnosis: {" "}
+                    </span>
+                    {detail.diagnosis1}
+                  </p>
+                  <p className="text-gray-500 text-sm truncate">
+                    <span className="text-gray-700 font-bold">
+                      Prescription: {" "}
+                    </span>
+                    {detail.prescription1}
+                  </p>
+                  <p className="text-gray-500 text-sm truncate">
+                    <span className="text-gray-700 font-bold">
+                      Comments: {" "}
+                    </span>
+                    {detail.comments}
+                  </p>
+                </div>
+                <div>
+                  <div className="-mt-px flex divide-x divide-gray-200">
+                    <div className="w-0 flex-1 flex">
+                      <button
+                        aria-label="Delete"
+                        title="Delete"
+                        onClick={() => handleDeleteDetail(detail._id)}
+                        className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm font-medium rounded-bl-lg text-red-500"
+                      >
+                        <TrashIcon className="w-5 h-5 text-red-500" aria-hidden="true" />
+                        <span className="ml-3">Delete</span>
+                      </button>
+                    </div>
+                    <div className="-ml-px w-0 flex-1 flex">
+                      <a
+                        href={`tel:${detail.mobileNumber}`}
+                        aria-label="Phone Number"
+                        title="Phone Number"
+                        className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-emerald-700 font-medium rounded-br-lg hover:text-emerald-900"
+                      >
+                        <PhoneIcon className="w-5 h-5 text-emerald-600" aria-hidden="true" />
+                        <span className="ml-3">Call</span>
+                      </a>
+                      <span>
+                        <div>
                           <button
-                            className="text-red-500 mr-2 p-2 border-transparent border bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 hover:bg-gray-200 cursor-pointer rounded focus:outline-none focus:border-gray-800 focus:shadow-outline-gray"
-                            aria-label="Delete"
-                            title="Delete"
-                            onClick={() => handleDeleteDetail(detail._id)}
+                            aria-label="Copy Phone Number"
+                            title="Copy Phone Number"
+                            className="focus:outline-none z-40 items-center justify-center py-4 pl-0 pr-4 text-sm text-emerald-400 font-medium hover:text-emerald-900"
+                            onClick={() => handleCopy(detail.mobileNumber)}
                           >
-                            <RiDeleteBin6Line />
+                            <DuplicateIcon className="w-5 h-5 text-emerald-400 hover:text-emerald-900" aria-hidden="true" />
                           </button>
                         </div>
-                      </td>
-                      {/* Patient name */}
-                      <td className="text-sm pr-8 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {detail.name}
-                      </td>
-                      {/* Case Number */}
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {detail.caseNumber}
-                      </td>
-                      {/* Mobile Number */}
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {detail.mobileNumber}
-                      </td>
-                      {/* Date 1 */}
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {new Date(detail.date1).toLocaleDateString(
-                          "en-IN",
-                          {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                            timeZone: "IST",
-                          }
-                        )}
-                      </td>
-                      {/* Diagnosis 1 */}
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {detail.diagnosis1}
-                      </td>
-                      {/* Prescription 1 */}
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {detail.prescription1}
-                      </td>
-                      {/* Date 2 */}
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {new Date(detail.date2).toLocaleDateString(
-                          "en-IN",
-                          {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                            timeZone: "IST",
-                          }
-                        )}
-                      </td>
-                      {/* Diagnosis 2 */}
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {detail.diagnosis2}
-                      </td>
-                      {/* Prescription 2 */}
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {detail.prescription2}
-                      </td>
-                      {/* Comments */}
-                      <td className="text-sm pr-6 whitespace-no-wrap text-gray-800 dark:text-gray-100 tracking-normal leading-4">
-                        {detail.comments}
-                      </td>
-                      {/* Edit button */}
-                      <td className="pr-8 relative">
-                        <Link to={`/details/${detail._id}`}>
-                          <button
-                            className="text-white ml-4 cursor-pointer focus:outline-none border border-transparent focus:border-gray-800 focus:shadow-outline-gray bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 w-8 h-8 rounded flex items-center justify-center"
-                            aria-label="Edit"
-                            title="Edit"
-                            onClick={() => setCurrent(detail)}
-                          >
-                            <FiEdit size={18} />
-                          </button>
-                        </Link>
-                      </td>
-                    </tr>
-                  ))
-                )}
-                {/* One row of data completed */}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            ))
+          )}
+        </ul>
       </div>
     </>
   );
+
 };
 export default CustomTable;
