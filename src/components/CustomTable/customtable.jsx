@@ -1,7 +1,7 @@
 // @ts-check
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { DuplicateIcon, PhoneIcon, TrashIcon } from '@heroicons/react/solid';
+import { DuplicateIcon, PhoneIcon, TrashIcon } from "@heroicons/react/solid";
 import { FiEdit } from "react-icons/fi";
 import DetailContext from "../../context/detail/detailContext";
 
@@ -19,8 +19,12 @@ const CustomTable = ({ details, loading }) => {
   };
 
   function handleCopy(mobileNumber) {
-    navigator.clipboard.writeText(`${mobileNumber}`);
-    window.alert(`Copied ${mobileNumber}`);
+    navigator.clipboard
+      .writeText(`${mobileNumber}`)
+      .then(function () {
+        window.alert(`Copied ${mobileNumber}`);
+      })
+      .catch((err) => window.alert("Please try again!"));
   }
 
   return (
@@ -42,19 +46,22 @@ const CustomTable = ({ details, loading }) => {
                 </div>
               </div>
             </section>
-          ) : details.length !== null &&
-            details.length === 0 &&
-            !loading ? (
+          ) : details.length !== null && details.length === 0 && !loading ? (
             <div>
               <p>Please add data</p>
             </div>
           ) : (
             details.map((detail) => (
-              <li key={detail._id} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
+              <li
+                key={detail._id}
+                className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
+              >
                 <div className="w-full flex items-center justify-between px-6 pt-6 pb-2 space-x-6">
                   <div className="flex-1 truncate">
                     <div className="flex items-center space-x-3">
-                      <h3 className="text-gray-900 text-sm font-medium truncate">{detail.name}</h3>
+                      <h3 className="text-gray-900 text-sm font-medium truncate">
+                        {detail.name}
+                      </h3>
                       <span className="flex-shrink-0 inline-block px-2 py-0.5 text-green-800 text-xs font-medium bg-green-100 rounded-full">
                         {detail.bloodGroup}
                       </span>
@@ -84,35 +91,26 @@ const CustomTable = ({ details, loading }) => {
                 </div>
                 <div className="w-full items-center p-6">
                   <p className="text-gray-500 text-sm truncate">
-                    <span className="text-gray-700 font-bold">
-                      Date:{" "}
-                    </span>
-                    {new Date(detail.date1).toLocaleDateString(
-                      "en-IN",
-                      {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                        timeZone: "IST",
-                      }
-                    )}
+                    <span className="text-gray-700 font-bold">Date: </span>
+                    {new Date(detail.date1).toLocaleDateString("en-IN", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      timeZone: "IST",
+                    })}
                   </p>
                   <p className="text-gray-500 text-sm truncate">
-                    <span className="text-gray-700 font-bold">
-                      Diagnosis: {" "}
-                    </span>
+                    <span className="text-gray-700 font-bold">Diagnosis: </span>
                     {detail.diagnosis1}
                   </p>
                   <p className="text-gray-500 text-sm truncate">
                     <span className="text-gray-700 font-bold">
-                      Prescription: {" "}
+                      Prescription:{" "}
                     </span>
                     {detail.prescription1}
                   </p>
                   <p className="text-gray-500 text-sm truncate">
-                    <span className="text-gray-700 font-bold">
-                      Comments: {" "}
-                    </span>
+                    <span className="text-gray-700 font-bold">Comments: </span>
                     {detail.comments}
                   </p>
                 </div>
@@ -125,7 +123,10 @@ const CustomTable = ({ details, loading }) => {
                         onClick={() => handleDeleteDetail(detail._id)}
                         className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm font-medium rounded-bl-lg text-red-600"
                       >
-                        <TrashIcon className="w-5 h-5 text-red-500" aria-hidden="true" />
+                        <TrashIcon
+                          className="w-5 h-5 text-red-500"
+                          aria-hidden="true"
+                        />
                         <span className="ml-3">Delete</span>
                       </button>
                     </div>
@@ -136,18 +137,25 @@ const CustomTable = ({ details, loading }) => {
                         title="Phone Number"
                         className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-emerald-700 font-medium rounded-br-lg hover:text-emerald-900"
                       >
-                        <PhoneIcon className="w-5 h-5 text-emerald-600" aria-hidden="true" />
+                        <PhoneIcon
+                          className="w-5 h-5 text-emerald-600"
+                          aria-hidden="true"
+                        />
                         <span className="ml-3">Call</span>
                       </a>
                       <span>
                         <div>
                           <button
                             aria-label="Copy Phone Number"
+                            data-clipboard-action="copy"
                             title="Copy Phone Number"
                             className="focus:outline-none z-40 items-center justify-center py-4 pl-0 pr-4 text-sm text-emerald-400 font-medium hover:text-emerald-900"
                             onClick={() => handleCopy(detail.mobileNumber)}
                           >
-                            <DuplicateIcon className="w-5 h-5 text-emerald-400 hover:text-emerald-900" aria-hidden="true" />
+                            <DuplicateIcon
+                              className="w-5 h-5 text-emerald-400 hover:text-emerald-900"
+                              aria-hidden="true"
+                            />
                           </button>
                         </div>
                       </span>
@@ -161,6 +169,5 @@ const CustomTable = ({ details, loading }) => {
       </div>
     </>
   );
-
 };
 export default CustomTable;
