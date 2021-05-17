@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { DuplicateIcon, PhoneIcon, TrashIcon } from '@heroicons/react/solid';
 import { FiEdit } from "react-icons/fi";
-import { GoPlus } from "react-icons/go";
 import DetailContext from "../../context/detail/detailContext";
 
 const CustomTable = ({ details, loading }) => {
