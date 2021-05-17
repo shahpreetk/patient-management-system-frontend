@@ -15,8 +15,9 @@ const EditDetail = lazy(() => import("./pages/EditDetail"));
 const Login = lazy(() => import("./pages/Login"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// axios.defaults.baseURL = "https://patient-management-backend.herokuapp.com/api/v1";
-axios.defaults.baseURL = "http://localhost:3001/api/v1";
+axios.defaults.baseURL =
+  "https://patient-management-backend.herokuapp.com/api/v1";
+// axios.defaults.baseURL = "http://localhost:3001/api/v1";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
