@@ -19,12 +19,18 @@ const CustomTable = ({ details, loading }) => {
   };
 
   function handleCopy(mobileNumber) {
-    navigator.clipboard
-      .writeText(`${mobileNumber}`)
-      .then(function () {
-        window.alert(`Copied ${mobileNumber}`);
-      })
-      .catch((err) => window.alert("Please try again!"));
+    if (navigator.clipboard !== undefined) { // chrome
+      navigator.clipboard
+        .writeText(`${mobileNumber}`)
+        .then(function () {
+          window.alert(`Copied ${mobileNumber}`);
+        })
+        .catch((err) => window.alert("Please try again!"));
+      // @ts-ignore
+    } else if (window.clipboardData) { // Internet Explorer
+      // @ts-ignore
+      window.clipboardData.setData(`${mobileNumber}`);
+    }
   }
 
   return (
