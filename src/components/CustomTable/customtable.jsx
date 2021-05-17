@@ -51,7 +51,7 @@ const CustomTable = ({ details, loading }) => {
           ) : (
             details.map((detail) => (
               <li key={detail._id} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
-                <div className="w-full flex items-center justify-between p-6 space-x-6">
+                <div className="w-full flex items-center justify-between px-6 pt-6 pb-2 space-x-6">
                   <div className="flex-1 truncate">
                     <div className="flex items-center space-x-3">
                       <h3 className="text-gray-900 text-sm font-medium truncate">{detail.name}</h3>
@@ -59,9 +59,14 @@ const CustomTable = ({ details, loading }) => {
                         {detail.bloodGroup}
                       </span>
                     </div>
-                    <p className="mt-1 text-gray-500 text-sm truncate">
-                      {detail.caseNumber}
-                    </p>
+                    <div className="flex items-center space-x-3">
+                      <p className="mt-1 text-gray-500 text-sm truncate">
+                        {detail.caseNumber}
+                      </p>
+                      <p className="flex-shrink-0 inline-block mt-1 text-orange-600 text-xs font-medium">
+                        | {detail.gender} |
+                      </p>
+                    </div>
                   </div>
                   {/* Details Icon */}
                   <p className="mt-1 text-gray-500 text-sm truncate">
