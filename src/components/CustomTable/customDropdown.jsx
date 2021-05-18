@@ -34,15 +34,15 @@ const CustomDropdown = ({ title, dropdownoptions }) => {
           >
             <Menu.Items
               static
-              className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+              className="origin-top-left absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
             >
-              {dropdownoptions.map((option) => {
+              {dropdownoptions.map((eachOption) => {
                 return (
-                  <div className="py-1" key={option}>
+                  <div className="py-1" key={eachOption}>
                     <Menu.Item>
                       {({ active }) => (
-                        <a
-                          href="/"
+                        <option
+                          value={eachOption}
                           className={classNames(
                             active
                               ? "bg-gray-100 text-gray-900"
@@ -50,8 +50,8 @@ const CustomDropdown = ({ title, dropdownoptions }) => {
                             "block px-4 py-2 text-sm"
                           )}
                         >
-                          {option}
-                        </a>
+                          {eachOption}
+                        </option>
                       )}
                     </Menu.Item>
                   </div>
