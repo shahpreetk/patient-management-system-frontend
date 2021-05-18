@@ -8,10 +8,10 @@ import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import moment from "moment";
 import styled from "styled-components";
+import CustomDropdown from "../components/CustomTable/customDropdown";
 
 const DateStyled = styled.div`
-
-  .SingleDatePickerInput__withBorder{
+  .SingleDatePickerInput__withBorder {
     border: none !important;
   }
 
@@ -58,8 +58,10 @@ const AddShare = () => {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
-  const [ticker, setTicker] = useState("");
-  const [stoploss, setStoploss] = useState(null);
+  const [caseNumber, setCaseNumber] = useState("");
+  const [mobileNumber, setMobileNumber] = useState(null);
+  const [bloodGroup, setBloodGroup] = useState(null);
+  const [gender, setGender] = useState(null);
   const [buyingDate, setBuyingDate] = useState(null);
   const [buyingPrice, setBuyingPrice] = useState(null);
   const [buyingQuantity, setBuyingQuantity] = useState(null);
@@ -74,14 +76,16 @@ const AddShare = () => {
     setIsLoading(true);
     const stock = {
       name,
-      ticker,
+      caseNumber,
+      mobileNumber,
+      gender,
+      bloodGroup,
       buyingDate,
       buyingPrice,
       buyingQuantity,
       sellingDate,
       sellingPrice,
       sellingQuantity,
-      stoploss,
     };
     await createStock(stock);
     setIsLoading(false);
@@ -109,25 +113,25 @@ const AddShare = () => {
                     <div className="pt-8">
                       <div>
                         <h3 className="text-lg leading-6 font-medium text-gray-900">
-                          Add Share Information
+                          Add Patient Information
                         </h3>
                         <p className="mt-1 text-sm text-gray-500">
-                          Please add one share at a time with proper details.
-                          Selling share information can be added once you sell
-                          your share.
+                          Please add one patient at a time with proper details.
+                          More appointments information can be added during a
+                          new appointment.
                         </p>
                       </div>
                       <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                        {/* Input for company name */}
+                        {/* Input for patient name */}
                         <div className="sm:col-span-3">
                           <label
                             htmlFor="name"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Company Name
+                            Patient Name
                           </label>
                           <p className="mt-1 text-sm text-gray-500">
-                            Eg: Avenue Supermarts
+                            Eg: Jane Doe
                           </p>
                           <div className="mt-1">
                             <input
@@ -136,30 +140,30 @@ const AddShare = () => {
                               onChange={(e) => setName(e.target.value)}
                               name="name"
                               id="name"
-                              autoComplete="company_name"
+                              autoComplete="patient_name"
                               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
                             />
                           </div>
                         </div>
-                        {/* Input for share ticker */}
+                        {/* Input for share caseNumber */}
                         <div className="sm:col-span-3">
                           <label
-                            htmlFor="ticker"
+                            htmlFor="caseNumber"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Ticker
+                            Case Number
                           </label>
                           <p className="mt-1 text-sm text-gray-500">
-                            Eg: DMART
+                            Eg: fadvn23e423kn
                           </p>
                           <div className="mt-1">
                             <input
                               type="text"
-                              name="ticker"
+                              name="caseNumber"
                               required
-                              id="ticker"
-                              onChange={(e) => setTicker(e.target.value)}
-                              autoComplete="ticker"
+                              id="caseNumber"
+                              onChange={(e) => setCaseNumber(e.target.value)}
+                              autoComplete="caseNumber"
                               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
                             />
                           </div>
@@ -207,72 +211,75 @@ const AddShare = () => {
                             />
                           </div>
                         </div>
-                        {/* Input for buying price  */}
+                        {/* Input for gender  */}
                         <div className="sm:col-span-3">
                           <label
-                            htmlFor="buyingPrice"
+                            htmlFor="gender"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Buying Price
+                            Gender
                           </label>
-                          <p className="mt-1 text-sm text-gray-500">Eg: 500</p>
+                          <p className="mt-1 text-sm text-gray-500">
+                            Eg: Female
+                          </p>
                           <div className="mt-1">
-                            <input
-                              type="number"
-                              name="buyingPrice"
-                              id="buyingPrice"
-                              onChange={(e) => setBuyingPrice(e.target.value)}
-                              min="1"
+                            {/* <input
+                              type="text"
+                              name="gender"
+                              id="gender"
+                              onChange={(e) => setGender(e.target.value)}
+
                               required
                               placeholder="in Rupees"
                               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
+                            /> */}
+                            <CustomDropdown
+                              title="Gender"
+                              dropdownoptions={["Male", "Female", "Other"]}
                             />
                           </div>
                         </div>
-                        {/* Input for quantity of shares bought */}
+                        {/* Input for blood group */}
                         <div className="sm:col-span-3">
                           <label
-                            htmlFor="buyingQuantity"
+                            htmlFor="bloodGroup"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Buying Quantity
+                            Blood Group
                           </label>
-                          <p className="mt-1 text-sm text-gray-500">Eg: 20</p>
+                          <p className="mt-1 text-sm text-gray-500">Eg: B+ve</p>
                           <div className="mt-1">
                             <input
-                              type="number"
-                              name="buyingQuantity"
+                              type="text"
+                              name="bloodGroup"
                               required
-                              min="1"
-                              onChange={(e) =>
-                                setBuyingQuantity(e.target.value)
-                              }
+                              onChange={(e) => setBloodGroup(e.target.value)}
                               placeholder="No. of shares"
-                              id="buyingQuantity"
+                              id="bloodGroup"
                               autoComplete="postal-code"
                               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
                             />
                           </div>
                         </div>
-                        {/* Input stoploss */}
+                        {/* Input mobileNumber */}
                         <div className="sm:col-span-3">
                           <label
-                            htmlFor="stoploss"
+                            htmlFor="mobileNumber"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Stoploss
+                            mobileNumber
                           </label>
                           <p className="mt-1 text-sm text-gray-500">Eg: 490</p>
                           <div className="mt-1">
                             <input
                               type="number"
-                              name="stoploss"
+                              name="mobileNumber"
                               required
                               min="1"
-                              onChange={(e) => setStoploss(e.target.value)}
+                              onChange={(e) => setMobileNumber(e.target.value)}
                               placeholder="Make sure you decide on a limit"
-                              id="stoploss"
-                              autoComplete="stoploss"
+                              id="mobileNumber"
+                              autoComplete="mobileNumber"
                               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
                             />
                           </div>
