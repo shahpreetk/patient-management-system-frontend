@@ -10,6 +10,8 @@ import moment from "moment";
 import styled from "styled-components";
 import CustomDropdown from "../components/CustomTable/customDropdown";
 
+const gender_list = ["Male", "Female", "Other"];
+
 const DateStyled = styled.div`
   .SingleDatePickerInput__withBorder {
     border: none !important;
@@ -61,7 +63,6 @@ const AddShare = () => {
   const [caseNumber, setCaseNumber] = useState("");
   const [mobileNumber, setMobileNumber] = useState(null);
   const [bloodGroup, setBloodGroup] = useState(null);
-  const [gender, setGender] = useState(null);
   const [buyingDate, setBuyingDate] = useState(null);
   const [buyingPrice, setBuyingPrice] = useState(null);
   const [buyingQuantity, setBuyingQuantity] = useState(null);
@@ -70,6 +71,11 @@ const AddShare = () => {
   const [sellingQuantity, setSellingQuantity] = useState(null);
   const [buyingFocused, setBuyingFocused] = useState(null);
   const [sellingFocused, setSellingFocused] = useState(null);
+  const [gender, GenderDropdown] = CustomDropdown(
+    "Gender",
+    "Male",
+    gender_list
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -223,20 +229,7 @@ const AddShare = () => {
                             Eg: Female
                           </p>
                           <div className="mt-1">
-                            {/* <input
-                              type="text"
-                              name="gender"
-                              id="gender"
-                              onChange={(e) => setGender(e.target.value)}
-
-                              required
-                              placeholder="in Rupees"
-                              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
-                            /> */}
-                            <CustomDropdown
-                              title="Gender"
-                              dropdownoptions={["Male", "Female", "Other"]}
-                            />
+                            <GenderDropdown />
                           </div>
                         </div>
                         {/* Input for blood group */}
