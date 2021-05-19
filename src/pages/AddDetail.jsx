@@ -2,11 +2,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as ROUTES from "../constants/routes";
-import StockContext from "../context/detail/detailContext";
+import DetailContext from "../context/detail/detailContext";
 import { SingleDatePicker } from "react-dates";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
-import moment from "moment";
 import styled from "styled-components";
 import CustomDropdown from "../components/CustomTable/customDropdown";
 
@@ -66,7 +65,7 @@ const DateStyled = styled.div`
 `;
 
 const AddShare = () => {
-  const { createStock, error, clearErrors } = useContext(StockContext);
+  const { createDetail, error, clearErrors } = useContext(DetailContext);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
@@ -81,7 +80,7 @@ const AddShare = () => {
     "Male",
     gender_list
   );
-  const [bloodgroup, BloodGroupDropdown] = CustomDropdown(
+  const [bloodGroup, BloodGroupDropdown] = CustomDropdown(
     "Blood Group",
     "A+ve",
     bloodgroup_list
@@ -95,12 +94,13 @@ const AddShare = () => {
       caseNumber,
       date1,
       gender,
-      bloodgroup,
+      bloodGroup,
       mobileNumber,
       diagnosis1,
       prescription1,
     };
-    await createStock(details);
+    // console.log(details);
+    await createDetail(details);
     setIsLoading(false);
     if (error) {
       console.log(error);
