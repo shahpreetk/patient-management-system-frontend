@@ -158,7 +158,7 @@ const AddShare = () => {
                             />
                           </div>
                         </div>
-                        {/* Input for share caseNumber */}
+                        {/* Input for caseNumber */}
                         <div className="sm:col-span-3">
                           <label
                             htmlFor="caseNumber"

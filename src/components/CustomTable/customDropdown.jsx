@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 const CustomDropdown = (label, defaultstate, options) => {
   const [dropdownState, setDropdownState] = useState(defaultstate);
-
   const Dropdownmaker = () => (
     <select
       id={label}

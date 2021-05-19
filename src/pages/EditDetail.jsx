@@ -2,16 +2,27 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as ROUTES from "../constants/routes";
-import StockContext from "../context/detail/detailContext";
+import DetailContext from "../context/detail/detailContext";
 import { SingleDatePicker } from "react-dates";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import moment from "moment";
 import styled from "styled-components";
+import CustomDropdown from "../components/CustomTable/customDropdown";
 
+const gender_list = ["Male", "Female", "Other"];
+const bloodgroup_list = [
+  "A+ve",
+  "A-ve",
+  "B+ve",
+  "B-ve",
+  "AB+ve",
+  "AB-ve",
+  "O+ve",
+  "O-ve",
+];
 const DateStyled = styled.div`
-
-  .SingleDatePickerInput__withBorder{
+  .SingleDatePickerInput__withBorder {
     border: none !important;
   }
 
@@ -54,47 +65,36 @@ const DateStyled = styled.div`
 `;
 
 const EditShare = () => {
-  const stockContext = useContext(StockContext);
-  const {
-    updateStock,
-    error,
-    clearErrors,
-    clearCurrent,
-    current,
-  } = stockContext;
+  const detailContext = useContext(DetailContext);
+  const { updateDetail, error, clearErrors, clearCurrent, current } =
+    detailContext;
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
-  const [ticker, setTicker] = useState("");
-  const [stoploss, setStoploss] = useState(null);
-  const [buyingDate, setBuyingDate] = useState(null);
-  const [buyingPrice, setBuyingPrice] = useState(null);
-  const [buyingQuantity, setBuyingQuantity] = useState(null);
-  const [sellingDate, setSellingDate] = useState(null);
-  const [sellingPrice, setSellingPrice] = useState(null);
-  const [sellingQuantity, setSellingQuantity] = useState(null);
-  const [buyingFocused, setBuyingFocused] = useState(null);
-  const [sellingFocused, setSellingFocused] = useState(null);
-  const [formattedBuyingDate, setFormattedBuyingDate] = useState(null);
-  const [formattedSellingDate, setFormattedSellingDate] = useState(null);
-  const _id = document.location.pathname.split("/")[2];
+  const [caseNumber, setCaseNumber] = useState("");
+  const [mobileNumber, setMobileNumber] = useState(null);
+  const [date1, setDate1] = useState(null);
+  const [date1focused, setDate1focused] = useState(null);
+  const [diagnosis1, setDiagnosis1] = useState("");
+  const [prescription1, setPrescription1] = useState("");
+  const [formattedDate1, setFormattedDate1] = useState(null);
 
+  const _id = document.location.pathname.split("/")[2];
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const stock = {
+    const detail = {
       _id,
       name,
-      ticker,
-      buyingDate: buyingDate === null ? current.buyingDate : buyingDate,
-      buyingPrice,
-      buyingQuantity,
-      sellingDate: sellingDate === null ? current.sellingDate : sellingDate,
-      sellingPrice,
-      sellingQuantity,
-      stoploss,
+      caseNumber,
+      date1: date1 === null ? current.date1 : date1,
+      mobileNumber,
+      diagnosis1,
+      prescription1,
+      gender,
+      bloodGroup,
     };
-    await updateStock(stock);
+    await updateDetail(detail);
     setIsLoading(false);
     if (error) {
       console.log(error);
@@ -109,35 +109,33 @@ const EditShare = () => {
     document.title = "Edit Detail | Patient Management";
     if (current !== null) {
       setName(current.name);
-      setTicker(current.ticker);
-      const newBuyDate = moment(current.buyingDate).format("DD/MM/YYYY");
-      setFormattedBuyingDate(newBuyDate);
-      setBuyingPrice(current.buyingPrice);
-      setBuyingQuantity(current.buyingQuantity);
-      if (current.sellingDate) {
-        const newSellDate = moment(current.sellingDate).format("DD/MM/YYYY");
-        setFormattedSellingDate(newSellDate);
-      } else {
-        setFormattedSellingDate("DD/MM/YYYY");
-      }
-      setSellingPrice(current.sellingPrice);
-      setSellingQuantity(current.sellingQuantity);
-      setStoploss(current.stoploss);
+      setCaseNumber(current.caseNumber);
+      const newBuyDate = moment(current.date1).format("DD/MM/YYYY");
+      setFormattedDate1(newBuyDate);
+      setMobileNumber(current.mobileNumber);
+      setDiagnosis1(current.diagnosis1);
+      setPrescription1(current.prescription1);
     } else {
       setName("");
-      setTicker("");
-      setBuyingDate(null);
-      setFormattedBuyingDate(null);
-      setBuyingPrice(null);
-      setBuyingQuantity(null);
-      setSellingDate(null);
-      setFormattedSellingDate(null);
-      setSellingPrice(null);
-      setSellingQuantity(null);
-      setStoploss(null);
+      setCaseNumber("");
+      setDate1(null);
+      setFormattedDate1(null);
+      setMobileNumber(null);
+      setDiagnosis1("");
+      setPrescription1(null);
     }
-  }, [stockContext, current]);
+  }, [detailContext, current]);
 
+  const [gender, GenderDropdown] = CustomDropdown(
+    "Gender",
+    current.gender,
+    gender_list
+  );
+  const [bloodGroup, BloodGroupDropdown] = CustomDropdown(
+    "Blood Group",
+    current.bloodGroup,
+    bloodgroup_list
+  );
   return (
     <>
       <DateStyled>
@@ -150,25 +148,24 @@ const EditShare = () => {
                     <div className="pt-8">
                       <div>
                         <h3 className="text-lg leading-6 font-medium text-gray-900">
-                          Edit Share Information
+                          Edit Patient Information
                         </h3>
                         <p className="mt-1 text-sm text-gray-500">
-                          Please edit share one at a time with proper details.
-                          Selling share information can be added once you sell
-                          your share.
+                          Please edit information of patient. More appointments
+                          information can be added over time.
                         </p>
                       </div>
                       <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                        {/* Input for company name */}
+                        {/* Input for patient name */}
                         <div className="sm:col-span-3">
                           <label
                             htmlFor="name"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Company Name
+                            Patient's Name
                           </label>
                           <p className="mt-1 text-sm text-gray-500">
-                            Eg: Avenue Supermarts
+                            Eg: Josh Doe
                           </p>
                           <div className="mt-1">
                             <input
@@ -183,65 +180,51 @@ const EditShare = () => {
                             />
                           </div>
                         </div>
-                        {/* Input for share ticker */}
+                        {/* Input for case Number */}
                         <div className="sm:col-span-3">
                           <label
-                            htmlFor="ticker"
+                            htmlFor="caseNumber"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Ticker
+                            Case Number
                           </label>
                           <p className="mt-1 text-sm text-gray-500">
-                            Eg: DMART
+                            Eg: dsiv092r20
                           </p>
                           <div className="mt-1">
                             <input
                               type="text"
-                              name="ticker"
+                              name="caseNumber"
                               required
-                              id="ticker"
-                              value={ticker}
-                              onChange={(e) => setTicker(e.target.value)}
-                              autoComplete="ticker"
+                              id="caseNumber"
+                              value={caseNumber}
+                              onChange={(e) => setCaseNumber(e.target.value)}
+                              autoComplete="caseNumber"
                               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
                             />
                           </div>
                         </div>
-                        {/* Input for buying date of share */}
+                        {/* Input for date 1 of appointment */}
                         <div className="sm:col-span-3">
                           <label
-                            htmlFor="buyingDate"
+                            htmlFor="date1"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Buying Date
+                            First Appointment Date
                           </label>
                           <p className="mt-1 text-sm text-gray-500">
                             Eg: 18/04/2021
                           </p>
                           <div className="mt-1">
                             <SingleDatePicker
-                              date={buyingDate}
-                              placeholder={formattedBuyingDate}
+                              date={date1}
+                              placeholder={formattedDate1}
                               onDateChange={(date) => {
-                                setBuyingDate(date);
+                                setDate1(date);
                               }}
-                              isOutsideRange={(date) => {
-                                // @ts-ignore
-                                const day = new Date(date).toLocaleDateString(
-                                  "en-US",
-                                  {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric",
-                                    timeZone: "UTC",
-                                  }
-                                );
-                                return moment().diff(day) <= 0;
-                              }}
-                              enableOutsideDays={false}
-                              focused={buyingFocused}
+                              focused={date1focused}
                               onFocusChange={({ focused }) =>
-                                setBuyingFocused(focused)
+                                setDate1focused(focused)
                               }
                               displayFormat="DD/MM/YYYY"
                               id="buyingDate"
@@ -249,163 +232,103 @@ const EditShare = () => {
                             />
                           </div>
                         </div>
-                        {/* Input for buying price  */}
+                        {/* Input for gender  */}
                         <div className="sm:col-span-3">
                           <label
-                            htmlFor="buyingPrice"
+                            htmlFor="gender"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Buying Price
-                          </label>
-                          <p className="mt-1 text-sm text-gray-500">Eg: 500</p>
-                          <div className="mt-1">
-                            <input
-                              type="number"
-                              value={buyingPrice}
-                              name="buyingPrice"
-                              id="buyingPrice"
-                              onChange={(e) => setBuyingPrice(e.target.value)}
-                              min="1"
-                              placeholder="in Rupees"
-                              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
-                            />
-                          </div>
-                        </div>
-                        {/* Input for quantity of shares bought */}
-                        <div className="sm:col-span-3">
-                          <label
-                            htmlFor="buyingQuantity"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Buying Quantity
-                          </label>
-                          <p className="mt-1 text-sm text-gray-500">Eg: 20</p>
-                          <div className="mt-1">
-                            <input
-                              type="number"
-                              value={buyingQuantity}
-                              name="buyingQuantity"
-                              required
-                              min="1"
-                              onChange={(e) =>
-                                setBuyingQuantity(e.target.value)
-                              }
-                              placeholder="No. of shares"
-                              id="buyingQuantity"
-                              autoComplete="postal-code"
-                              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
-                            />
-                          </div>
-                        </div>
-                        {/* Input stoploss */}
-                        <div className="sm:col-span-3">
-                          <label
-                            htmlFor="stoploss"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Stoploss
-                          </label>
-                          <p className="mt-1 text-sm text-gray-500">Eg: 490</p>
-                          <div className="mt-1">
-                            <input
-                              type="number"
-                              value={stoploss}
-                              name="stoploss"
-                              required
-                              min="1"
-                              onChange={(e) => setStoploss(e.target.value)}
-                              placeholder="Make sure you decide on a limit"
-                              id="stoploss"
-                              autoComplete="stoploss"
-                              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
-                            />
-                          </div>
-                        </div>
-                        {/* Input for selling date of share*/}
-                        <div className="sm:col-span-2">
-                          <label
-                            htmlFor="sellingDate"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Selling Date
+                            Gender
                           </label>
                           <p className="mt-1 text-sm text-gray-500">
-                            Eg: 20/04/2021
+                            Eg: Female
                           </p>
                           <div className="mt-1">
-                            <SingleDatePicker
-                              date={sellingDate}
-                              placeholder={formattedSellingDate}
-                              onDateChange={(date) => {
-                                setSellingDate(date);
-                              }}
-                              isOutsideRange={(date) => {
-                                // @ts-ignore
-                                const day = new Date(date).toLocaleDateString(
-                                  "en-US",
-                                  {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric",
-                                    timeZone: "UTC",
-                                  }
-                                );
-                                return moment().diff(day) <= 0;
-                              }}
-                              enableOutsideDays={false}
-                              focused={sellingFocused}
-                              onFocusChange={({ focused }) =>
-                                setSellingFocused(focused)
-                              }
-                              displayFormat="DD/MM/YYYY"
-                              id="sellingDate"
-                              numberOfMonths={1}
-                            />
+                            <GenderDropdown />
                           </div>
                         </div>
-                        {/* Input for selling price */}
-                        <div className="sm:col-span-2">
+                        {/* Input for blood group */}
+                        <div className="sm:col-span-3">
                           <label
-                            htmlFor="sellingPrice"
+                            htmlFor="bloodGroup"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Selling Price
+                            Blood Group
                           </label>
-                          <p className="mt-1 text-sm text-gray-500">Eg: 510</p>
+                          <p className="mt-1 text-sm text-gray-500">Eg: B+ve</p>
+                          <div className="mt-1">
+                            <BloodGroupDropdown />
+                          </div>
+                        </div>
+                        {/* Input for mobile number  */}
+                        <div className="sm:col-span-3">
+                          <label
+                            htmlFor="mobileNumber"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Mobile Number
+                          </label>
+                          <p className="mt-1 text-sm text-gray-500">
+                            Eg: 9812345670
+                          </p>
                           <div className="mt-1">
                             <input
-                              type="number"
-                              min="1"
-                              value={sellingPrice}
-                              onChange={(e) => setSellingPrice(e.target.value)}
-                              name="sellingPrice"
-                              id="sellingPrice"
-                              placeholder="in Rupees"
+                              type="text"
+                              value={mobileNumber}
+                              name="mobileNumber"
+                              id="mobileNumber"
+                              onChange={(e) => setMobileNumber(e.target.value)}
+                              minLength={10}
                               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
                             />
                           </div>
                         </div>
-                        {/* Input for selling quantity */}
-                        <div className="sm:col-span-2">
+                        {/* Input for diagnosis 1 */}
+                        <div className="sm:col-span-3">
                           <label
-                            htmlFor="sellingQuantity"
+                            htmlFor="diagnosis1"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Selling Quantity
+                            Diagnosis 1
                           </label>
-                          <p className="mt-1 text-sm text-gray-500">Eg: 20</p>
+                          <p className="mt-1 text-sm text-gray-500">
+                            Eg: Fever
+                          </p>
                           <div className="mt-1">
                             <input
-                              type="number"
-                              value={sellingQuantity}
+                              type="text"
+                              value={diagnosis1}
+                              name="diagnosis1"
+                              required
                               min="1"
-                              name="sellingQuantity"
-                              placeholder="No. of shares"
-                              id="sellingQuantity"
-                              onChange={(e) =>
-                                setSellingQuantity(e.target.value)
-                              }
+                              onChange={(e) => setDiagnosis1(e.target.value)}
+                              id="diagnosis1"
                               autoComplete="postal-code"
+                              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
+                            />
+                          </div>
+                        </div>
+                        {/* Input prescription1 */}
+                        <div className="sm:col-span-3">
+                          <label
+                            htmlFor="prescription1"
+                            className="block text-sm font-medium text-gray-700"
+                          >
+                            Prescription 1
+                          </label>
+                          <p className="mt-1 text-sm text-gray-500">
+                            Eg: Paracetamol
+                          </p>
+                          <div className="mt-1">
+                            <input
+                              type="text"
+                              value={prescription1}
+                              name="prescription1"
+                              required
+                              min="1"
+                              onChange={(e) => setPrescription1(e.target.value)}
+                              id="prescription1"
+                              autoComplete="prescription1"
                               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
                             />
                           </div>
