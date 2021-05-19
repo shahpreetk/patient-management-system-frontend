@@ -11,6 +11,16 @@ import styled from "styled-components";
 import CustomDropdown from "../components/CustomTable/customDropdown";
 
 const gender_list = ["Male", "Female", "Other"];
+const bloodgroup_list = [
+  "A+ve",
+  "A-ve",
+  "B+ve",
+  "B-ve",
+  "AB+ve",
+  "AB-ve",
+  "O+ve",
+  "O-ve",
+];
 
 const DateStyled = styled.div`
   .SingleDatePickerInput__withBorder {
@@ -62,38 +72,35 @@ const AddShare = () => {
   const [name, setName] = useState("");
   const [caseNumber, setCaseNumber] = useState("");
   const [mobileNumber, setMobileNumber] = useState(null);
-  const [bloodGroup, setBloodGroup] = useState(null);
-  const [buyingDate, setBuyingDate] = useState(null);
-  const [buyingPrice, setBuyingPrice] = useState(null);
-  const [buyingQuantity, setBuyingQuantity] = useState(null);
-  const [sellingDate, setSellingDate] = useState(null);
-  const [sellingPrice, setSellingPrice] = useState(null);
-  const [sellingQuantity, setSellingQuantity] = useState(null);
-  const [buyingFocused, setBuyingFocused] = useState(null);
-  const [sellingFocused, setSellingFocused] = useState(null);
+  const [date1, setDate1] = useState(null);
+  const [date1focused, setDate1focused] = useState(null);
+  const [diagnosis1, setDiagnosis1] = useState("");
+  const [prescription1, setPrescription1] = useState("");
   const [gender, GenderDropdown] = CustomDropdown(
     "Gender",
     "Male",
     gender_list
   );
+  const [bloodgroup, BloodGroupDropdown] = CustomDropdown(
+    "Blood Group",
+    "A+ve",
+    bloodgroup_list
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const stock = {
+    const details = {
       name,
       caseNumber,
-      mobileNumber,
+      date1,
       gender,
-      bloodGroup,
-      buyingDate,
-      buyingPrice,
-      buyingQuantity,
-      sellingDate,
-      sellingPrice,
-      sellingQuantity,
+      bloodgroup,
+      mobileNumber,
+      diagnosis1,
+      prescription1,
     };
-    await createStock(stock);
+    await createStock(details);
     setIsLoading(false);
     if (error) {
       console.log(error);
@@ -174,42 +181,28 @@ const AddShare = () => {
                             />
                           </div>
                         </div>
-                        {/* Input for buying date of share */}
+                        {/* Input for date of appointment 1 */}
                         <div className="sm:col-span-3">
                           <label
-                            htmlFor="buyingDate"
+                            htmlFor="date1"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Buying Date
+                            First Appointment Date
                           </label>
                           <p className="mt-1 text-sm text-gray-500">
                             Eg: 18/04/2021
                           </p>
                           <div className="mt-1">
                             <SingleDatePicker
-                              date={buyingDate}
+                              date={date1}
                               placeholder="DD/MM/YYYY"
                               required
                               onDateChange={(date) => {
-                                setBuyingDate(date);
+                                setDate1(date);
                               }}
-                              isOutsideRange={(date) => {
-                                // @ts-ignore
-                                const day = new Date(date).toLocaleDateString(
-                                  "en-US",
-                                  {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric",
-                                    timeZone: "UTC",
-                                  }
-                                );
-                                return moment().diff(day) <= 0;
-                              }}
-                              enableOutsideDays={false}
-                              focused={buyingFocused}
+                              focused={date1focused}
                               onFocusChange={({ focused }) =>
-                                setBuyingFocused(focused)
+                                setDate1focused(focused)
                               }
                               displayFormat="DD/MM/YYYY"
                               id="buyingDate"
@@ -242,16 +235,7 @@ const AddShare = () => {
                           </label>
                           <p className="mt-1 text-sm text-gray-500">Eg: B+ve</p>
                           <div className="mt-1">
-                            <input
-                              type="text"
-                              name="bloodGroup"
-                              required
-                              onChange={(e) => setBloodGroup(e.target.value)}
-                              placeholder="No. of shares"
-                              id="bloodGroup"
-                              autoComplete="postal-code"
-                              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
-                            />
+                            <BloodGroupDropdown />
                           </div>
                         </div>
                         {/* Input mobileNumber */}
@@ -260,112 +244,67 @@ const AddShare = () => {
                             htmlFor="mobileNumber"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            mobileNumber
+                            Mobile Number
                           </label>
-                          <p className="mt-1 text-sm text-gray-500">Eg: 490</p>
+                          <p className="mt-1 text-sm text-gray-500">
+                            Eg: 9823853942
+                          </p>
                           <div className="mt-1">
                             <input
-                              type="number"
+                              type="text"
                               name="mobileNumber"
                               required
-                              min="1"
                               onChange={(e) => setMobileNumber(e.target.value)}
-                              placeholder="Make sure you decide on a limit"
+                              minLength={10}
                               id="mobileNumber"
                               autoComplete="mobileNumber"
                               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
                             />
                           </div>
                         </div>
-                        {/* Input for selling date of share*/}
-                        <div className="sm:col-span-2">
-                          {/* <p className="mt-1 text-red-500">
-                            To add information about selling details of this
-                            share, please go to edit option once you have saved
-                            this. Thank you!!
-                          </p>
-                        </div> */}
+                        {/* Input for diagnosis 1 */}
+                        <div className="sm:col-span-3">
                           <label
-                            htmlFor="sellingDate"
+                            htmlFor="diagnosis1"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Selling Date
+                            Diagnosis 1
                           </label>
                           <p className="mt-1 text-sm text-gray-500">
-                            Eg: 20/04/2021
+                            Eg: Fever
                           </p>
                           <div className="mt-1">
-                            <SingleDatePicker
-                              date={sellingDate}
-                              placeholder="DD/MM/YYYY"
-                              onDateChange={(date) => {
-                                setSellingDate(date);
-                              }}
-                              isOutsideRange={(date) => {
-                                // @ts-ignore
-                                const day = new Date(date).toLocaleDateString(
-                                  "en-US",
-                                  {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric",
-                                    timeZone: "UTC",
-                                  }
-                                );
-                                return moment().diff(day) <= 0;
-                              }}
-                              enableOutsideDays={false}
-                              focused={sellingFocused}
-                              onFocusChange={({ focused }) =>
-                                setSellingFocused(focused)
-                              }
-                              displayFormat="DD/MM/YYYY"
-                              id="sellingDate"
-                              numberOfMonths={1}
-                            />
-                          </div>
-                        </div>
-                        {/* Input for selling price */}
-                        <div className="sm:col-span-2">
-                          <label
-                            htmlFor="sellingPrice"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Selling Price
-                          </label>
-                          <p className="mt-1 text-sm text-gray-500">Eg: 510</p>
-                          <div className="mt-1">
                             <input
-                              type="number"
-                              min="1"
-                              onChange={(e) => setSellingPrice(e.target.value)}
-                              name="sellingPrice"
-                              id="sellingPrice"
-                              placeholder="in Rupees"
+                              type="text"
+                              name="diagnosis1"
+                              required
+                              onChange={(e) => setDiagnosis1(e.target.value)}
+                              id="diagnosis1"
+                              autoComplete="postal-code"
                               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
                             />
                           </div>
                         </div>
-                        {/* Input for selling quantity */}
-                        <div className="sm:col-span-2">
+
+                        {/* Input for prescription 1 */}
+                        <div className="sm:col-span-3">
                           <label
-                            htmlFor="sellingQuantity"
+                            htmlFor="prescription1"
                             className="block text-sm font-medium text-gray-700"
                           >
-                            Selling Quantity
+                            Prescription 1
                           </label>
-                          <p className="mt-1 text-sm text-gray-500">Eg: 20</p>
+                          <p className="mt-1 text-sm text-gray-500">
+                            Eg: Paracetamol
+                          </p>
                           <div className="mt-1">
                             <input
-                              type="number"
-                              min="1"
-                              name="sellingQuantity"
-                              placeholder="No. of shares"
-                              id="sellingQuantity"
-                              onChange={(e) =>
-                                setSellingQuantity(e.target.value)
-                              }
-                              autoComplete="postal-code"
+                              type="text"
+                              name="prescription1"
+                              required
+                              onChange={(e) => setPrescription1(e.target.value)}
+                              id="prescription1"
+                              autoComplete="prescription1"
                               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
                             />
                           </div>
