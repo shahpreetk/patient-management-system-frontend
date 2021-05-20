@@ -2,7 +2,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { DuplicateIcon, PhoneIcon, TrashIcon } from "@heroicons/react/solid";
-import { FiEdit, FiPlus } from "react-icons/fi";
+import { FiEdit, FiChevronRight } from "react-icons/fi";
 import DetailContext from "../../context/detail/detailContext";
 
 const CustomTable = ({ details, loading }) => {
@@ -88,8 +88,8 @@ const CustomTable = ({ details, loading }) => {
                     <Link to={`/details/${detail._id}`}>
                       <button
                         className="text-gray-600 ml-4 cursor-pointer focus:outline-none border border-transparent focus:border-gray-600 focus:shadow-outline-gray bg-gray-300 transition duration-150 ease-in-out hover:bg-gray-100 w-8 h-8 rounded flex items-center justify-center"
-                        aria-label="Edit Patient Details"
-                        title="Edit Patient Details"
+                        aria-label="Edit Patient Record"
+                        title="Edit Patient Record"
                         onClick={() => setCurrent(detail)}
                       >
                         <FiEdit size={18} />
@@ -100,11 +100,11 @@ const CustomTable = ({ details, loading }) => {
                     <Link to={`/patient_profile/${detail._id}`}>
                       <button
                         className="text-white ml-4 cursor-pointer focus:outline-none border border-transparent focus:border-gray-800 focus:shadow-outline-gray bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-500 w-8 h-8 rounded flex items-center justify-center"
-                        aria-label="Add Diagnosis"
-                        title="Add Diagnosis"
+                        aria-label="Patient Details"
+                        title="Patient Details"
                         onClick={() => setCurrent(detail)}
                       >
-                        <FiPlus size={18} />
+                        <FiChevronRight size={18} />
                       </button>
                     </Link>
                   </p>
