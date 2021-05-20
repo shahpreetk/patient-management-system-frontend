@@ -1,4 +1,4 @@
-import { DocumentAddIcon, SortAscendingIcon, UsersIcon } from '@heroicons/react/solid';
+import { UserAddIcon, SortAscendingIcon, UsersIcon } from '@heroicons/react/solid';
 import { Link } from 'react-router-dom';
 import * as ROUTES from "../constants/routes";
 
@@ -33,11 +33,13 @@ const SearchComponent = () => {
           <div className="content-end items-end">
             <Link to={ROUTES.ADD_DATA}>
               <button
+                aria-label="Add New Patient"
+                title="Add New Patient"
                 type="button"
-                className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 Add New
-            <DocumentAddIcon className="ml-3 -mr-1 h-5 w-5" aria-hidden="true" />
+            <UserAddIcon className="ml-3 -mr-1 h-5 w-5" aria-hidden="true" />
               </button>
             </Link>
           </div>
