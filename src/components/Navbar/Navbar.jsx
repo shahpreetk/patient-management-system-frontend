@@ -6,7 +6,7 @@ import DetailContext from "../../context/detail/detailContext";
 const Navbar = () => {
   const authContext = useContext(AuthContext);
   const detailContext = useContext(DetailContext);
-  const { logout } = authContext;
+  const { logout, isAuthenticated } = authContext;
   const { clearDetails } = detailContext;
 
   return (
@@ -20,27 +20,29 @@ const Navbar = () => {
             <span className="ml-3 text-xl">Patient Management System</span>
           </a>
           <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4	flex flex-wrap items-center text-base justify-center"></nav>
-          <button
-            className="inline-flex items-center text-white bg-blueGray-500 border-0 py-1 px-3 focus:outline-none hover:bg-blueGray-400 rounded text-base mt-4 md:mt-0"
-            onClick={() => {
-              logout();
-              clearDetails();
-              window.location.reload();
-            }}
-          >
-            Logout
-            <svg
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="w-4 h-4 ml-1"
-              viewBox="0 0 24 24"
+          {isAuthenticated ? (
+            <button
+              className="inline-flex items-center text-white bg-blueGray-500 border-0 py-1 px-3 focus:outline-none hover:bg-blueGray-400 rounded text-base mt-4 md:mt-0"
+              onClick={() => {
+                logout();
+                clearDetails();
+                window.location.reload();
+              }}
             >
-              <path d="M5 12h14M12 5l7 7-7 7"></path>
-            </svg>
-          </button>
+              Logout
+              <svg
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                className="w-4 h-4 ml-1"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          ) : null}
         </div>
       </header>
     </>

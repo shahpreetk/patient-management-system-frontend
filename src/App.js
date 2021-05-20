@@ -8,6 +8,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import AuthState from "./context/auth/AuthState";
 import DetailState from "./context/detail/DetailState";
 import setAuthToken from "./utils/setAuthToken";
+import Navbar from "./components/Navbar/Navbar";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const AddDetail = lazy(() => import("./pages/AddDetail"));
@@ -45,6 +46,7 @@ export default function App() {
               </section>
             }
           >
+            <Navbar />
             <Switch>
               <Route path={ROUTES.LOGIN} component={Login} exact />
               <PrivateRoute

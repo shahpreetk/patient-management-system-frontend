@@ -1,6 +1,5 @@
 // @ts-check
 import React, { useEffect, useContext } from "react";
-import Navbar from "../components/Navbar/Navbar";
 import SearchComponent from "../components/SearchComponent";
 import CustomTable from "../components/CustomTable/customtable";
 import AuthContext from "../context/auth/authContext";
@@ -22,9 +21,6 @@ export default function Dashboard() {
   return (
     <>
       <div className="bg-gray-100 h-full min-h-screen">
-        <div className="bg-gray-100">
-          <Navbar />
-        </div>
         {loading ? (
           <section>
             <div className="flex">
