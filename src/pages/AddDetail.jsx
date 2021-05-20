@@ -224,6 +224,7 @@ const AddShare = () => {
                               required
                               onChange={(e) => setMobileNumber(e.target.value)}
                               minLength={10}
+                              maxLength={10}
                               id="mobileNumber"
                               autoComplete="mobileNumber"
                               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
@@ -233,7 +234,7 @@ const AddShare = () => {
                         {/* Input for height */}
                         <div className="sm:col-span-2">
                           <label
-                            htmlFor="number"
+                            htmlFor="height"
                             className="block text-sm font-medium text-gray-700"
                           >
                             Height (in ft)
@@ -241,7 +242,7 @@ const AddShare = () => {
                           <p className="mt-1 text-sm text-gray-500">Eg: 5.5</p>
                           <div className="mt-1">
                             <input
-                              type="text"
+                              type="number"
                               name="height"
                               required
                               onChange={(e) => setHeight(e.target.value)}
