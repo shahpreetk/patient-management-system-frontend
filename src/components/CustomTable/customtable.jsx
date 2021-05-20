@@ -19,7 +19,8 @@ const CustomTable = ({ details, loading }) => {
   };
 
   function handleCopy(mobileNumber) {
-    if (navigator.clipboard !== undefined) { // chrome
+    if (navigator.clipboard !== undefined) {
+      // chrome
       navigator.clipboard
         .writeText(`${mobileNumber}`)
         .then(function () {
@@ -27,7 +28,8 @@ const CustomTable = ({ details, loading }) => {
         })
         .catch((err) => window.alert("Please try again!"));
       // @ts-ignore
-    } else if (window.clipboardData) { // Internet Explorer
+    } else if (window.clipboardData) {
+      // Internet Explorer
       // @ts-ignore
       window.clipboardData.setData(`${mobileNumber}`);
     }
@@ -86,6 +88,18 @@ const CustomTable = ({ details, loading }) => {
                     <Link to={`/details/${detail._id}`}>
                       <button
                         className="text-white ml-4 cursor-pointer focus:outline-none border border-transparent focus:border-gray-800 focus:shadow-outline-gray bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 w-8 h-8 rounded flex items-center justify-center"
+                        aria-label="Edit"
+                        title="Edit"
+                        onClick={() => setCurrent(detail)}
+                      >
+                        <FiEdit size={18} />
+                      </button>
+                    </Link>
+                  </p>
+                  <p className="mt-1 text-gray-500 text-sm truncate">
+                    <Link to={`/patient_profile/${detail._id}`}>
+                      <button
+                        className="text-white ml-4 cursor-pointer focus:outline-none border border-transparent focus:border-gray-800 focus:shadow-outline-gray bg-red-700 transition duration-150 ease-in-out hover:bg-red-600 w-8 h-8 rounded flex items-center justify-center"
                         aria-label="Edit"
                         title="Edit"
                         onClick={() => setCurrent(detail)}

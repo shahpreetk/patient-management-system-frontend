@@ -14,6 +14,7 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 const AddDetail = lazy(() => import("./pages/AddDetail"));
 const EditDetail = lazy(() => import("./pages/EditDetail"));
 const Login = lazy(() => import("./pages/Login"));
+const PatientProfile = lazy(() => import("./pages/PatientProfile"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 axios.defaults.baseURL =
@@ -62,6 +63,11 @@ export default function App() {
               <PrivateRoute
                 path={ROUTES.EDIT_DATA}
                 component={EditDetail}
+                exact
+              />
+              <PrivateRoute
+                path={ROUTES.PATIENT_PROFILE}
+                component={PatientProfile}
                 exact
               />
               <Route component={NotFound} />
