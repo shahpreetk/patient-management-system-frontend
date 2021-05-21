@@ -9,6 +9,7 @@ import AuthState from "./context/auth/AuthState";
 import DetailState from "./context/detail/DetailState";
 import setAuthToken from "./utils/setAuthToken";
 import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/FooterComponent";
 
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const AddDetail = lazy(() => import("./pages/AddDetail"));
@@ -36,7 +37,6 @@ export default function App() {
                 <div className="flex h-screen">
                   <div className="m-auto">
                     <img
-                      className=""
                       width="128px"
                       height="128px"
                       src="/images/loader.gif"
@@ -72,6 +72,7 @@ export default function App() {
               />
               <Route component={NotFound} />
             </Switch>
+            <Footer />
           </Suspense>
         </Router>
       </DetailState>
