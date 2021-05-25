@@ -1,10 +1,10 @@
-# patient-management-system-frontend
+# Patient Management System: Frontend (W.I.P 🔩⚙️ )
 
-Frontend for patient inventory project
+Frontend for patient management system.
 
 ## About the system
 
-It is a website that allows doctors to keep a track of patients and their prescriptions.
+It is a website that allows doctors to keep a track of their patients and the patients prescriptions.
 
 ### Makers
 
