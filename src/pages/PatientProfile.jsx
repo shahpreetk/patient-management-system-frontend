@@ -1,3 +1,4 @@
+// @ts-check
 import MoreInfoComponent from '../components/MoreInfoComponent';
 
 const PatientProfile = () => {
