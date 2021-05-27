@@ -1,5 +1,5 @@
 // @ts-check
-import { MailIcon, PhoneIcon } from '@heroicons/react/solid';
+import { PhoneIcon } from '@heroicons/react/solid';
 
 const MoreInfoComponent = () => {
   return (
