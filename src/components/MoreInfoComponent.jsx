@@ -1,4 +1,5 @@
 // @ts-check
+import InfoTable from './InfoTable';
 import { PhoneIcon } from '@heroicons/react/solid';
 
 const MoreInfoComponent = () => {
@@ -58,6 +59,9 @@ const MoreInfoComponent = () => {
             </div>
           </dl>
         </div>
+      </div>
+      <div className="my-5">
+        <InfoTable />
       </div>
     </>
   );
