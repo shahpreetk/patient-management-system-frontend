@@ -42,12 +42,12 @@ const InfoTable = () => {
                 </thead>
                 <tbody>
                   <tr className={personIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">28 May, 2021
+                    <td className="px-6 py-4 whitespace-nowrap text-md font-medium text-gray-900">28 May, 2021
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Headache</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Crocin</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Constant headache over a week</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-6 py-4 text-md text-gray-700">Headache</td>
+                    <td className="px-6 py-4 text-md text-gray-700">Crocin Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis, quo. </td>
+                    <td className="px-6 py-4 text-md text-gray-700">Constant headache over a week. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae, iure. </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                       <a href="/" className="text-indigo-600 hover:text-indigo-900">
                         Edit
                       </a>
