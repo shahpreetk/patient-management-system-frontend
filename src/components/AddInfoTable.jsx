@@ -1,25 +1,12 @@
 //@ts-check
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import * as ROUTES from "../constants/routes";
 import DetailContext from "../context/detail/detailContext";
 import { SingleDatePicker } from "react-dates";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import styled from "styled-components";
-import CustomDropdown from "../components/CustomTable/customDropdown";
-
-const gender_list = ["Male", "Female", "Other"];
-const bloodgroup_list = [
-  "A+ve",
-  "A-ve",
-  "B+ve",
-  "B-ve",
-  "AB+ve",
-  "AB-ve",
-  "O+ve",
-  "O-ve",
-];
 
 const DateStyled = styled.div`
   .SingleDatePickerInput__withBorder {
@@ -68,34 +55,17 @@ const AddInfoTable = () => {
   const { createDetail, error, clearErrors } = useContext(DetailContext);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
-  const [name, setName] = useState("");
-  const [caseNumber, setCaseNumber] = useState("");
-  const [mobileNumber, setMobileNumber] = useState(null);
   const [date1, setDate1] = useState(null);
   const [date1focused, setDate1focused] = useState(null);
   const [diagnosis1, setDiagnosis1] = useState("");
   const [prescription1, setPrescription1] = useState("");
-  const [gender, GenderDropdown] = CustomDropdown(
-    "Gender",
-    "Male",
-    gender_list
-  );
-  const [bloodGroup, BloodGroupDropdown] = CustomDropdown(
-    "Blood Group",
-    "A+ve",
-    bloodgroup_list
-  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     const details = {
-      name,
-      caseNumber,
       date1,
-      gender,
-      bloodGroup,
-      mobileNumber,
+
       diagnosis1,
       prescription1,
     };
@@ -117,7 +87,7 @@ const AddInfoTable = () => {
   return (
     <>
       <DateStyled>
-        <div className="bg-white">
+        <div className="bg-white rounded-md">
           <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
             <form className="space-y-8" onSubmit={handleSubmit}>
               <div className="space-y-8 divide-y divide-gray-200">
