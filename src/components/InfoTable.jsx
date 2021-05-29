@@ -2,6 +2,19 @@
 const InfoTable = () => {
   // changer personIdx to index of map, so that it will be alternate colors
   let personIdx = 0;
+  let id = 0;
+
+  const handleDeleteDiagnosis = (id) => {
+    const userFeedback = window.confirm(
+      "Are you sure you want to delete this diagnosis?"
+    );
+    if (userFeedback) {
+      console.log(id, "Deleted!");
+    } else {
+      return null;
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col">
@@ -48,9 +61,10 @@ const InfoTable = () => {
                     <td className="px-6 py-4 text-md text-gray-700">Crocin Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis, quo. </td>
                     <td className="px-6 py-4 text-md text-gray-700">Constant headache over a week. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae, iure. </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
-                      <a href="/" className="text-indigo-600 hover:text-indigo-900">
-                        Edit
-                      </a>
+                      <button
+                        onClick={() => handleDeleteDiagnosis(id)} className="text-red-600 hover:text-red-900">
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 </tbody>

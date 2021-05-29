@@ -19,7 +19,7 @@ const MoreInfoComponent = () => {
               <div className="ml-4">
                 <h3 className="text-lg leading-6 font-medium text-gray-900">John Doe</h3>
                 <p className="text-sm text-gray-500">
-                  <p>Case Number: 3636bd2181e</p>
+                  <span>Case Number: 3636bd2181e</span>
                 </p>
               </div>
             </div>
