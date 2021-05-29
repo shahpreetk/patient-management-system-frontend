@@ -1,5 +1,5 @@
 // @ts-check
-const InfoTable = () => {
+const InfoTable = ({ medicals }) => {
   // changer personIdx to index of map, so that it will be alternate colors
   let personIdx = 0;
   let id = 0;
@@ -29,44 +29,60 @@ const InfoTable = () => {
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
                       Date
-                  </th>
+                    </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
                       Diagnosis
-                  </th>
+                    </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
                       Prescription
-                  </th>
+                    </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
                       Comments
-                  </th>
+                    </th>
                     <th scope="col" className="relative px-6 py-3">
                       <span className="sr-only">Edit</span>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className={personIdx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                    <td className="px-6 py-4 whitespace-nowrap text-md font-medium text-gray-900">28 May, 2021
-                    </td>
-                    <td className="px-6 py-4 text-md text-gray-700">Headache</td>
-                    <td className="px-6 py-4 text-md text-gray-700">Crocin Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nobis, quo. </td>
-                    <td className="px-6 py-4 text-md text-gray-700">Constant headache over a week. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quae, iure. </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
-                      <button
-                        onClick={() => handleDeleteDiagnosis(id)} className="text-red-600 hover:text-red-900">
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
+                  {medicals.map((medical) => (
+                    <tr
+                      key={medical.id}
+                      className={
+                        personIdx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                      }
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap text-md font-medium text-gray-900">
+                        {new Date(medical.date).toLocaleDateString("en-IN")}
+                      </td>
+                      <td className="px-6 py-4 text-md text-gray-700">
+                        {medical.diagnosis}
+                      </td>
+                      <td className="px-6 py-4 text-md text-gray-700">
+                        {medical.prescription}{" "}
+                      </td>
+                      <td className="px-6 py-4 text-md text-gray-700">
+                        {medical.comments ? medical.comments : "-"}{" "}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
+                        <button
+                          onClick={() => handleDeleteDiagnosis(id)}
+                          className="text-red-600 hover:text-red-900"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
