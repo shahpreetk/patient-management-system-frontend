@@ -52,7 +52,7 @@ const InfoTable = ({ medicals }) => {
                 <tbody>
                   {medicals.map((medical, personIdx) => (
                     <tr
-                      key={medical.id}
+                      key={medical._id}
                       className={
                         personIdx % 2 === 0 ? "bg-white" : "bg-gray-50"
                       }

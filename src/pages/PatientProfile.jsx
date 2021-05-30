@@ -9,19 +9,20 @@ import DetailContext from "../context/detail/detailContext";
 const PatientProfile = () => {
   const authContext = useContext(AuthContext);
   const detailContext = useContext(DetailContext);
-  const { current, loading } = detailContext;
+  const { detail, getOneDetail } = detailContext;
+  const _id = document.location.pathname.split("/")[2];
 
   useEffect(() => {
     document.title = "Patient Management System";
     document.head.lang = "en";
     authContext.loadUser();
-
+    getOneDetail(_id);
     // eslint-disable-next-line
   }, []);
-
+  console.log(detail);
   return (
     <div className="bg-gray-100">
-      {loading ? (
+      {!detail ? (
         <section>
           <div className="flex">
             <div className="m-auto">
@@ -39,20 +40,20 @@ const PatientProfile = () => {
         <>
           <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <MoreInfoComponent
-              name={current.name}
-              caseNumber={current.caseNumber}
-              height={current.height}
-              weight={current.weight}
-              gender={current.gender}
-              mobileNumber={current.mobileNumber}
-              bloodGroup={current.bloodGroup}
+              name={detail.name}
+              caseNumber={detail.caseNumber}
+              height={detail.height}
+              weight={detail.weight}
+              gender={detail.gender}
+              mobileNumber={detail.mobileNumber}
+              bloodGroup={detail.bloodGroup}
             />
           </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <AddInfoTable />
           </div>
           <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <InfoTable medicals={current.medicals} />
+            <InfoTable medicals={detail.medicals} />
           </div>
         </>
       )}

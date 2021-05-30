@@ -8,6 +8,7 @@ export const LOGOUT = "LOGOUT";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const CREATE_DETAIL = "CREATE_DETAIL";
 export const GET_DETAILS = "GET_DETAILS";
+export const GET_ONE_DETAIL = "GET_ONE_DETAIL";
 export const CLEAR_DETAILS = "CLEAR_DETAILS";
 export const UPDATE_DETAIL = "UPDATE_DETAIL";
 export const DELETE_DETAIL = "DELETE_DETAIL";

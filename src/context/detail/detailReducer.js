@@ -2,6 +2,7 @@
 import {
   CREATE_DETAIL,
   GET_DETAILS,
+  GET_ONE_DETAIL,
   UPDATE_DETAIL,
   DELETE_DETAIL,
   SETCURRENT_DETAIL,
@@ -21,6 +22,12 @@ export default function detailReducer(state, action) {
         details: action.payload,
         loading: false,
       };
+    case GET_ONE_DETAIL:
+      return {
+        ...state,
+        detail: action.payload,
+        loading: false,
+      };
     case CREATE_DETAIL:
       return {
         ...state,
@@ -30,8 +37,8 @@ export default function detailReducer(state, action) {
     case UPDATE_DETAIL:
       return {
         ...state,
-        details: state.details.map((detail) =>
-          detail._id === action.payload._id ? action.payload : detail
+        details: state.details.map((onedetail) =>
+          onedetail._id === action.payload._id ? action.payload : onedetail
         ),
         loading: false,
       };

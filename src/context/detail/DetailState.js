@@ -6,6 +6,7 @@ import detailReducer from "./detailReducer";
 import {
   CREATE_DETAIL,
   GET_DETAILS,
+  GET_ONE_DETAIL,
   UPDATE_DETAIL,
   DELETE_DETAIL,
   SETCURRENT_DETAIL,
@@ -22,6 +23,7 @@ const DetailState = (props) => {
   const initialState = {
     loading: true,
     details: null,
+    detail: null,
     error: null,
     current: null,
     filtered: null,
@@ -34,6 +36,17 @@ const DetailState = (props) => {
       const res = await axios.get("/details");
       // @ts-ignore
       dispatch({ type: GET_DETAILS, payload: res.data });
+    } catch (err) {
+      // @ts-ignore
+      dispatch({ type: ERROR_DETAIL, payload: err.response.data.msg });
+    }
+  };
+
+  const getOneDetail = async (id) => {
+    try {
+      const res = await axios.get(`/details/${id}`);
+      // @ts-ignore
+      dispatch({ type: GET_ONE_DETAIL, payload: res.data });
     } catch (err) {
       // @ts-ignore
       dispatch({ type: ERROR_DETAIL, payload: err.response.data.msg });
@@ -110,9 +123,11 @@ const DetailState = (props) => {
       value={{
         loading: state.loading,
         details: state.details,
+        detail: state.detail,
         error: state.error,
         current: state.current,
         getDetails,
+        getOneDetail,
         createDetail,
         deleteDetail,
         setCurrent,
