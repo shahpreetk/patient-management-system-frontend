@@ -1,9 +1,5 @@
 // @ts-check
 const InfoTable = ({ medicals }) => {
-  // changer personIdx to index of map, so that it will be alternate colors
-  let personIdx = 0;
-  let id = 0;
-
   const handleDeleteDiagnosis = (id) => {
     const userFeedback = window.confirm(
       "Are you sure you want to delete this diagnosis?"
@@ -54,7 +50,7 @@ const InfoTable = ({ medicals }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {medicals.map((medical) => (
+                  {medicals.map((medical, personIdx) => (
                     <tr
                       key={medical.id}
                       className={
@@ -75,7 +71,7 @@ const InfoTable = ({ medicals }) => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                         <button
-                          onClick={() => handleDeleteDiagnosis(id)}
+                          onClick={() => handleDeleteDiagnosis(medical._id)}
                           className="text-red-600 hover:text-red-900"
                         >
                           Delete

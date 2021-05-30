@@ -1,7 +1,7 @@
 //@ts-check
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import * as ROUTES from "../constants/routes";
+// import { useHistory } from "react-router-dom";
+// import * as ROUTES from "../constants/routes";
 import DetailContext from "../context/detail/detailContext";
 import { SingleDatePicker } from "react-dates";
 import "react-dates/initialize";
@@ -54,7 +54,7 @@ const DateStyled = styled.div`
 const AddInfoTable = () => {
   const { updateDetail, error, clearErrors, clearCurrent } =
     useContext(DetailContext);
-  const history = useHistory();
+  // const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
   const [date, setDate] = useState(null);
   const [datefocused, setDatefocused] = useState(null);
@@ -86,7 +86,7 @@ const AddInfoTable = () => {
       console.log(error);
       clearErrors();
     } else {
-      history.push(ROUTES.DASHBOARD);
+      alert("Details successfully added");
       clearCurrent();
     }
   };

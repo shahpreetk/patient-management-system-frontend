@@ -242,7 +242,6 @@ const AddShare = () => {
                           <p className="mt-1 text-sm text-gray-500">Eg: 5.5</p>
                           <div className="mt-1">
                             <input
-                              type="number"
                               name="height"
                               required
                               onChange={(e) => setHeight(e.target.value)}
