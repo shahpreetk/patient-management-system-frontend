@@ -19,7 +19,6 @@ const PatientProfile = () => {
     // eslint-disable-next-line
   }, []);
 
-  console.log(current);
   return (
     <div className="bg-gray-100">
       {loading ? (

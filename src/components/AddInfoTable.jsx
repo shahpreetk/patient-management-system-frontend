@@ -52,31 +52,42 @@ const DateStyled = styled.div`
 `;
 
 const AddInfoTable = () => {
-  const { createDetail, error, clearErrors } = useContext(DetailContext);
+  const { updateDetail, error, clearErrors, clearCurrent } =
+    useContext(DetailContext);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
-  const [date1, setDate1] = useState(null);
-  const [date1focused, setDate1focused] = useState(null);
-  const [diagnosis1, setDiagnosis1] = useState("");
-  const [prescription1, setPrescription1] = useState("");
+  const [date, setDate] = useState(null);
+  const [datefocused, setDatefocused] = useState(null);
+  const [diagnosis, setDiagnosis] = useState("");
+  const [prescription, setPrescription] = useState("");
+  const [comments, setComments] = useState("");
+  const _id = document.location.pathname.split("/")[2];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const sendDate = new Date(date).toISOString().split("T")[0];
     setIsLoading(true);
-    const details = {
-      date1,
-
-      diagnosis1,
-      prescription1,
+    const update = [
+      {
+        date: sendDate,
+        diagnosis: diagnosis,
+        prescription: prescription,
+        comments: comments,
+      },
+    ];
+    const detail = {
+      _id,
+      medicals: update,
     };
-    // console.log(details);
-    await createDetail(details);
+    console.log(detail);
+    await updateDetail(detail);
     setIsLoading(false);
     if (error) {
       console.log(error);
       clearErrors();
     } else {
       history.push(ROUTES.DASHBOARD);
+      clearCurrent();
     }
   };
 
@@ -105,7 +116,7 @@ const AddInfoTable = () => {
                     {/* Input for date of appointment 1 */}
                     <div className="sm:col-span-2">
                       <label
-                        htmlFor="date1"
+                        htmlFor="date"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Appointment Date
@@ -115,15 +126,15 @@ const AddInfoTable = () => {
                       </p>
                       <div className="mt-1">
                         <SingleDatePicker
-                          date={date1}
+                          date={date}
                           placeholder="DD/MM/YYYY"
                           required
                           onDateChange={(date) => {
-                            setDate1(date);
+                            setDate(date);
                           }}
-                          focused={date1focused}
+                          focused={datefocused}
                           onFocusChange={({ focused }) =>
-                            setDate1focused(focused)
+                            setDatefocused(focused)
                           }
                           displayFormat="DD/MM/YYYY"
                           id="buyingDate"
@@ -135,7 +146,7 @@ const AddInfoTable = () => {
                     {/* Input for diagnosis */}
                     <div className="sm:col-span-2">
                       <label
-                        htmlFor="diagnosis1"
+                        htmlFor="diagnosis"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Diagnosis
@@ -144,10 +155,10 @@ const AddInfoTable = () => {
                       <div className="mt-1">
                         <input
                           type="text"
-                          name="diagnosis1"
+                          name="diagnosis"
                           required
-                          onChange={(e) => setDiagnosis1(e.target.value)}
-                          id="diagnosis1"
+                          onChange={(e) => setDiagnosis(e.target.value)}
+                          id="diagnosis"
                           autoComplete="postal-code"
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
                         />
@@ -157,7 +168,7 @@ const AddInfoTable = () => {
                     {/* Input for prescription */}
                     <div className="sm:col-span-2">
                       <label
-                        htmlFor="prescription1"
+                        htmlFor="prescription"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Prescription
@@ -166,10 +177,10 @@ const AddInfoTable = () => {
                       <div className="mt-1">
                         <input
                           type="text"
-                          name="prescription1"
+                          name="prescription"
                           required
-                          onChange={(e) => setPrescription1(e.target.value)}
-                          id="prescription1"
+                          onChange={(e) => setPrescription(e.target.value)}
+                          id="prescription"
                           autoComplete="postal-code"
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
                         />
@@ -179,7 +190,7 @@ const AddInfoTable = () => {
                     {/* Input for Comments */}
                     <div className="sm:col-span-6">
                       <label
-                        htmlFor="prescription1"
+                        htmlFor="comments"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Additional Comments
@@ -189,11 +200,11 @@ const AddInfoTable = () => {
                       </p> */}
                       <div className="mt-1">
                         <textarea
-                          name="prescription1"
+                          name="comments"
                           required
-                          onChange={(e) => setPrescription1(e.target.value)}
-                          id="prescription1"
-                          autoComplete="prescription1"
+                          onChange={(e) => setComments(e.target.value)}
+                          id="comments"
+                          autoComplete="comments"
                           className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
                         />
                       </div>
