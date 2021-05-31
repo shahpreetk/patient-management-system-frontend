@@ -19,7 +19,7 @@ const PatientProfile = () => {
     getOneDetail(_id);
     // eslint-disable-next-line
   }, []);
-  console.log(detail);
+
   return (
     <div className="bg-gray-100">
       {!detail ? (
@@ -53,7 +53,7 @@ const PatientProfile = () => {
             <AddInfoTable />
           </div>
           <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <InfoTable medicals={detail.medicals} />
+            <InfoTable id1={detail._id} medicals={detail.medicals} />
           </div>
         </>
       )}

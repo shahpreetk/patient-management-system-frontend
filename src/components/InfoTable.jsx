@@ -1,11 +1,20 @@
 // @ts-check
-const InfoTable = ({ medicals }) => {
-  const handleDeleteDiagnosis = (id) => {
+import { useContext } from "react";
+import { useHistory } from "react-router-dom";
+import DetailContext from "../context/detail/detailContext";
+import * as ROUTES from "../constants/routes";
+
+const InfoTable = ({ id1, medicals }) => {
+  const detailContext = useContext(DetailContext);
+  const { deleteMedicalDetail } = detailContext;
+  const history = useHistory();
+  const handleDeleteDiagnosis = async (id2) => {
     const userFeedback = window.confirm(
       "Are you sure you want to delete this diagnosis?"
     );
     if (userFeedback) {
-      console.log(id, "Deleted!");
+      await deleteMedicalDetail(id1, id2);
+      history.push(ROUTES.DASHBOARD);
     } else {
       return null;
     }
@@ -50,35 +59,39 @@ const InfoTable = ({ medicals }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {medicals.map((medical, personIdx) => (
-                    <tr
-                      key={medical._id}
-                      className={
-                        personIdx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                      }
-                    >
-                      <td className="px-6 py-4 whitespace-nowrap text-md font-medium text-gray-900">
-                        {new Date(medical.date).toLocaleDateString("en-IN")}
-                      </td>
-                      <td className="px-6 py-4 text-md text-gray-700">
-                        {medical.diagnosis}
-                      </td>
-                      <td className="px-6 py-4 text-md text-gray-700">
-                        {medical.prescription}{" "}
-                      </td>
-                      <td className="px-6 py-4 text-md text-gray-700">
-                        {medical.comments ? medical.comments : "-"}{" "}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
-                        <button
-                          onClick={() => handleDeleteDiagnosis(medical._id)}
-                          className="text-red-600 hover:text-red-900"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                  {!medicals ? (
+                    <p>Please add a diagnosis</p>
+                  ) : (
+                    medicals.map((medical, personIdx) => (
+                      <tr
+                        key={medical._id}
+                        className={
+                          personIdx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                        }
+                      >
+                        <td className="px-6 py-4 whitespace-nowrap text-md font-medium text-gray-900">
+                          {new Date(medical.date).toLocaleDateString("en-IN")}
+                        </td>
+                        <td className="px-6 py-4 text-md text-gray-700">
+                          {medical.diagnosis}
+                        </td>
+                        <td className="px-6 py-4 text-md text-gray-700">
+                          {medical.prescription}{" "}
+                        </td>
+                        <td className="px-6 py-4 text-md text-gray-700">
+                          {medical.comments ? medical.comments : "-"}{" "}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
+                          <button
+                            onClick={() => handleDeleteDiagnosis(medical._id)}
+                            className="text-red-600 hover:text-red-900"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>

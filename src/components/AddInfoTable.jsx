@@ -201,7 +201,6 @@ const AddInfoTable = () => {
                       <div className="mt-1">
                         <textarea
                           name="comments"
-                          required
                           onChange={(e) => setComments(e.target.value)}
                           id="comments"
                           autoComplete="comments"

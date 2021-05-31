@@ -9,6 +9,7 @@ import {
   GET_ONE_DETAIL,
   UPDATE_DETAIL,
   DELETE_DETAIL,
+  DELETE_MEDICAL_DETAIL,
   SETCURRENT_DETAIL,
   CLEARCURRENT_DETAIL,
   ERROR_DETAIL,
@@ -76,6 +77,17 @@ const DetailState = (props) => {
     }
   };
 
+  const deleteMedicalDetail = async (id1, id2) => {
+    try {
+      await axios.delete(`/details/medical/${id1}/${id2}`);
+      // @ts-ignore
+      dispatch({ type: DELETE_MEDICAL_DETAIL, payload: id2 });
+    } catch (err) {
+      // @ts-ignore
+      dispatch({ type: ERROR_DETAIL, payload: err.response.data.msg });
+    }
+  };
+
   const updateDetail = async (detail) => {
     const config = { headers: { "Content-Type": "application/json" } };
     try {
@@ -130,6 +142,7 @@ const DetailState = (props) => {
         getOneDetail,
         createDetail,
         deleteDetail,
+        deleteMedicalDetail,
         setCurrent,
         clearCurrent,
         updateDetail,

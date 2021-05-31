@@ -5,6 +5,7 @@ import {
   GET_ONE_DETAIL,
   UPDATE_DETAIL,
   DELETE_DETAIL,
+  DELETE_MEDICAL_DETAIL,
   SETCURRENT_DETAIL,
   CLEARCURRENT_DETAIL,
   ERROR_DETAIL,
@@ -47,6 +48,14 @@ export default function detailReducer(state, action) {
         ...state,
         details: state.details.filter(
           (detail) => detail._id !== action.payload
+        ),
+        loading: false,
+      };
+    case DELETE_MEDICAL_DETAIL:
+      return {
+        ...state,
+        detail: state.detail.medicals.filter(
+          (eachmedical) => eachmedical._id !== action.payload
         ),
         loading: false,
       };
