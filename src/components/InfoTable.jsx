@@ -1,20 +1,17 @@
 // @ts-check
 import { useContext } from "react";
-import { useHistory } from "react-router-dom";
 import DetailContext from "../context/detail/detailContext";
-import * as ROUTES from "../constants/routes";
 
 const InfoTable = ({ id1, medicals }) => {
   const detailContext = useContext(DetailContext);
   const { deleteMedicalDetail } = detailContext;
-  const history = useHistory();
   const handleDeleteDiagnosis = async (id2) => {
     const userFeedback = window.confirm(
       "Are you sure you want to delete this diagnosis?"
     );
     if (userFeedback) {
       await deleteMedicalDetail(id1, id2);
-      history.push(ROUTES.DASHBOARD);
+      window.location.reload();
     } else {
       return null;
     }

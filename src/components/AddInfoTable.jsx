@@ -81,13 +81,12 @@ const AddInfoTable = () => {
     };
     await updateDetail(detail);
     setIsLoading(false);
-    if (error) {
-      console.log(error);
-      clearErrors();
-    } else {
+    if (!error) {
       history.push(ROUTES.DASHBOARD);
       clearCurrent();
-      // window.location.reload();
+    } else {
+      console.log(error);
+      clearErrors();
     }
   };
 

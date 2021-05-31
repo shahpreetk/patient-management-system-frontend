@@ -102,7 +102,6 @@ const CustomTable = ({ details, loading }) => {
                         className="text-white ml-4 cursor-pointer focus:outline-none border border-transparent focus:border-gray-800 focus:shadow-outline-gray bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-500 w-8 h-8 rounded flex items-center justify-center"
                         aria-label="Patient Details"
                         title="Patient Details"
-                        onClick={() => setCurrent(detail)}
                       >
                         <FiChevronRight size={18} />
                       </button>
