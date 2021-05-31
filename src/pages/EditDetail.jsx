@@ -3,10 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as ROUTES from "../constants/routes";
 import DetailContext from "../context/detail/detailContext";
-import { SingleDatePicker } from "react-dates";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
-import moment from "moment";
 import styled from "styled-components";
 import CustomDropdown from "../components/CustomTable/customDropdown";
 
@@ -73,11 +71,6 @@ const EditShare = () => {
   const [name, setName] = useState("");
   const [caseNumber, setCaseNumber] = useState("");
   const [mobileNumber, setMobileNumber] = useState(null);
-  const [date1, setDate1] = useState(null);
-  const [date1focused, setDate1focused] = useState(null);
-  const [diagnosis1, setDiagnosis1] = useState("");
-  const [prescription1, setPrescription1] = useState("");
-  const [formattedDate1, setFormattedDate1] = useState(null);
 
   const _id = document.location.pathname.split("/")[2];
   const handleSubmit = async (e) => {
@@ -87,10 +80,7 @@ const EditShare = () => {
       _id,
       name,
       caseNumber,
-      date1: date1 === null ? current.date1 : date1,
       mobileNumber,
-      diagnosis1,
-      prescription1,
       gender,
       bloodGroup,
     };
@@ -110,19 +100,11 @@ const EditShare = () => {
     if (current !== null) {
       setName(current.name);
       setCaseNumber(current.caseNumber);
-      const newBuyDate = moment(current.date1).format("DD/MM/YYYY");
-      setFormattedDate1(newBuyDate);
       setMobileNumber(current.mobileNumber);
-      setDiagnosis1(current.diagnosis1);
-      setPrescription1(current.prescription1);
     } else {
       setName("");
       setCaseNumber("");
-      setDate1(null);
-      setFormattedDate1(null);
       setMobileNumber(null);
-      setDiagnosis1("");
-      setPrescription1(null);
     }
   }, [detailContext, current]);
 
@@ -204,34 +186,7 @@ const EditShare = () => {
                             />
                           </div>
                         </div>
-                        {/* Input for date 1 of appointment */}
-                        <div className="sm:col-span-3">
-                          <label
-                            htmlFor="date1"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            First Appointment Date
-                          </label>
-                          <p className="mt-1 text-sm text-gray-500">
-                            Eg: 18/04/2021
-                          </p>
-                          <div className="mt-1">
-                            <SingleDatePicker
-                              date={date1}
-                              placeholder={formattedDate1}
-                              onDateChange={(date) => {
-                                setDate1(date);
-                              }}
-                              focused={date1focused}
-                              onFocusChange={({ focused }) =>
-                                setDate1focused(focused)
-                              }
-                              displayFormat="DD/MM/YYYY"
-                              id="buyingDate"
-                              numberOfMonths={1}
-                            />
-                          </div>
-                        </div>
+
                         {/* Input for gender  */}
                         <div className="sm:col-span-3">
                           <label
@@ -279,56 +234,6 @@ const EditShare = () => {
                               id="mobileNumber"
                               onChange={(e) => setMobileNumber(e.target.value)}
                               minLength={10}
-                              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
-                            />
-                          </div>
-                        </div>
-                        {/* Input for diagnosis 1 */}
-                        <div className="sm:col-span-3">
-                          <label
-                            htmlFor="diagnosis1"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Diagnosis 1
-                          </label>
-                          <p className="mt-1 text-sm text-gray-500">
-                            Eg: Fever
-                          </p>
-                          <div className="mt-1">
-                            <input
-                              type="text"
-                              value={diagnosis1}
-                              name="diagnosis1"
-                              required
-                              min="1"
-                              onChange={(e) => setDiagnosis1(e.target.value)}
-                              id="diagnosis1"
-                              autoComplete="postal-code"
-                              className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
-                            />
-                          </div>
-                        </div>
-                        {/* Input prescription1 */}
-                        <div className="sm:col-span-3">
-                          <label
-                            htmlFor="prescription1"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Prescription 1
-                          </label>
-                          <p className="mt-1 text-sm text-gray-500">
-                            Eg: Paracetamol
-                          </p>
-                          <div className="mt-1">
-                            <input
-                              type="text"
-                              value={prescription1}
-                              name="prescription1"
-                              required
-                              min="1"
-                              onChange={(e) => setPrescription1(e.target.value)}
-                              id="prescription1"
-                              autoComplete="prescription1"
                               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md appearance-none border  py-2 px-3 flex-1 min-w-0  rounded-r-md"
                             />
                           </div>
